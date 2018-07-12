@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT_UTILISATEUR } from '../../environments/environment';
-import { Utilisateur } from '../model/utilisateur';
-import { Connexion } from '../model/connexion';
+import { Utilisateur } from '../models/utilisateur';
+import { Connexion } from '../models/connexion';
 /**
  * Service managing tags API
  */
