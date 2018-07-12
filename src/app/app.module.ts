@@ -4,10 +4,12 @@ import { MyOwnCustomModule } from './custom.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { MenuPteComponent } from './menu-pte/menu-pte.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuPteComponent
   ],
   imports: [
     BrowserModule,
