@@ -1,4 +1,4 @@
-import {Utilisteur} from './utilisteur';
+import {Utilisateur} from './utilisateur';
 import {Question} from './question';
 
 export class Candidat {
@@ -8,6 +8,6 @@ export class Candidat {
     prenom: string;
     note: number;
     date: Date;
-    utlisateur: Utilisteur;
+    utilisateur: Utilisateur;
     question: Question;
 }
