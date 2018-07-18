@@ -29,7 +29,7 @@ export class VisualiserComponent implements OnInit {
 
     question1.libelle = "test tableau 1 kjdhfkhdslhnsflknvlsnvlks";
     question1.etat = true;
-    question1.reponse = reponses;
+    question1.reponseDto = reponses;
 
     question2.libelle = "test tableau 2";
     question2.etat = true;

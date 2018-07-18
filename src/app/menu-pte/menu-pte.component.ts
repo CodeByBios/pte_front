@@ -15,64 +15,72 @@ import { TypeQuestion } from '../models/typeQuestion';
 export class MenuPteComponent implements OnInit {
 
   constructor(private niveauService: NiveauService,
-              private langageService: LangageService,
-              private typeQuestionService: TypeQuestionService,
-              private route: ActivatedRoute, 
-              private router: Router) {}
+    private langageService: LangageService,
+    private typeQuestionService: TypeQuestionService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
-  idUser: string;
   inscrire: boolean;
   question: boolean;
   niveaux: Niveau[];
-  langages: Langage[];
+  langages: Langage[] = [];
   typeQuestions: TypeQuestion[];
   langageAffiche: boolean;
+  niveauSelected: number;
+  typeQuestionSelected: number;
 
   ngOnInit() {
-    this.idUser = this.route.snapshot.paramMap.get('id');
+    if (this.route.snapshot.paramMap.get('id') !== null) {
+      let IdUserElement = document.getElementsByClassName("user");
+      IdUserElement.item(0).id = this.route.snapshot.paramMap.get('id');
+    }
 
-    let element = document.getElementById("entete");
-    let element1 = document.getElementById("user");
-    let element2 = document.getElementById("nav");
-    let element3 = document.getElementsByClassName("user");
+    let menuElement = document.getElementById("entete");
+    let NavElement = document.getElementById("nav");
+    let Userelement = document.getElementById("user");
 
-    element.style.display = "initial";
-    element2.style.display = "initial";
-
-    element1.textContent = "Brice BETTY"
-    element3.item(0).id = this.idUser;
+    menuElement.style.display = "initial";
+    NavElement.style.display = "initial";
 
     this.niveauService.getNiveau().subscribe(rep => {
-      this.niveaux = rep; 
+      this.niveaux = rep;
     },
-    (error: any) => {
-      console.log(error)
-    })
+      (error: any) => {
+        console.log(error)
+      })
 
     this.langageService.getLangages().subscribe(rep => {
-      this.langages = rep; 
+      this.langages = rep;
     },
-    (error: any) => {
-      console.log(error)
-    })
+      (error: any) => {
+        console.log(error)
+      })
 
     this.typeQuestionService.getTypeQuestion().subscribe(rep => {
-      this.typeQuestions = rep; 
+      this.typeQuestions = rep;
     },
-    (error: any) => {
-      console.log(error)
-    })
+      (error: any) => {
+        console.log(error)
+      })
   }
 
-  suivant(){
-    this.router.navigateByUrl("/inscrire/"+this.idUser);
+  suivant() {
+    this.router.navigateByUrl("/inscrire/" + this.niveauSelected + "/" + this.typeQuestionSelected);
+    console.log(this.typeQuestionSelected);
+    console.log(this.niveauSelected);
   }
 
-  onItemChange(typeQuestion: any){
-    if(typeQuestion.libelle === "Techniques"){
+  onItemChange(typeQuestion: any) {
+    if (typeQuestion.libelle === "Technique") {
       this.langageAffiche = true;
-    }else{
+    } else {
       this.langageAffiche = false;
+    }
+
+    for (let i = 0; i < this.langages.length; ++i) {
+      if (this.langages[i].libelle === "Autres") {
+        this.langages.splice(i, 1);
+      }
     }
   }
 }

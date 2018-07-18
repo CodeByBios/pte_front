@@ -1,7 +1,6 @@
 import {Question} from './question';
 
 export class Langage {
-    idLangage: number;
+    id: number;
     libelle: string;
-    question: Question;
 }

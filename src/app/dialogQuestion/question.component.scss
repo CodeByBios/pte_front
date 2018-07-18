@@ -1,6 +1,6 @@
 .all{
     width: 600px;
-    padding: 40px;
+    padding: 10px;
 }
 
 mat-dialog-content{
@@ -10,6 +10,12 @@ mat-dialog-content{
         mat-form-field{
             width: 100%;
         }
+    }
+    .mat-checkbox{
+        margin-left: 20px;
+    }
+    mat-checkbox:first-child{
+        margin-left: 0px;
     }
 }
 

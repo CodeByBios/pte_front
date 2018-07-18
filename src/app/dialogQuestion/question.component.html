@@ -1,4 +1,5 @@
 <div class="all">
+  <h2 mat-dialog-title></h2>
   <mat-dialog-content>
     <mat-form-field>
       <textarea matInput [(ngModel)]="libelle" placeholder="Libelle" required></textarea>
@@ -8,43 +9,62 @@
       <textarea matInput [(ngModel)]="code" placeholder="Code (pour les questions du type : Que fait le code ci-dessous ?)"></textarea>
     </mat-form-field>
 
+    <div *ngIf="buttonAjouter">
+      <mat-checkbox color="primary" (click)="selectedNiveau(niveau)" *ngFor="let niveau of niveaux">{{niveau.libelle}}</mat-checkbox>
+    </div>
+    <br>
+    {{niveauSelected}}
+    <mat-form-field *ngIf="buttonAjouter">
+      <mat-select placeholder="Type de test">
+        <mat-option (click)="selectedTypeQuestion(typeQuestion)" value="{{typeQuestion}}" *ngFor="let typeQuestion of typeQuestions">{{typeQuestion.libelle}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="langageAffiche">
+      <mat-form-field *ngIf="buttonAjouter">
+        <mat-select placeholder="Technologie">
+          <mat-option (click)="selectedLangage(langage)" value="{{langage}}" *ngFor="let langage of langages">{{langage.libelle}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <mat-radio-group [(ngModel)]="etat" *ngIf="modifEtat">
       <mat-radio-button color="primary" value="valider" disable> Validée </mat-radio-button>
       <mat-radio-button color="primary" value="nonValidation"> En cours de validation </mat-radio-button>
+      <br>
     </mat-radio-group>
-    <br>
 
     <mat-form-field>
       <input matInput [(ngModel)]="proposition1" placeholder="Proposition 1" required>
     </mat-form-field>
-    <mat-checkbox color="primary" [(ngModel)]="repJuste1">Bonne proposition ?</mat-checkbox>
+    <mat-checkbox color="primary" (click)="repJuste1()" >Bonne proposition ?</mat-checkbox>
     <br>
 
     <mat-form-field>
       <input matInput [(ngModel)]="proposition2" placeholder="Proposition 2" required>
     </mat-form-field>
-    <mat-checkbox color="primary" [(ngModel)]="repJuste2">Bonne proposition ?</mat-checkbox> 
+    <mat-checkbox color="primary" (click)="repJuste2()">Bonne proposition ?</mat-checkbox>
     <br>
-    
+
     <div *ngIf="propo3">
-        <mat-form-field>
-            <input matInput [(ngModel)]="proposition3" placeholder="Proposition 3">
-        </mat-form-field>
-        <mat-checkbox color="primary" [(ngModel)]="repJuste3">Bonne proposition ?</mat-checkbox>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button color="primary" (click)="supprimerProposition()">supprimer</button>
-    </div><br>
-    
+      <mat-form-field>
+        <input matInput [(ngModel)]="proposition3" placeholder="Proposition 3">
+      </mat-form-field>
+      <mat-checkbox color="primary" (click)="repJuste3()">Bonne proposition ?</mat-checkbox>
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <button mat-raised-button color="primary" (click)="supprimerProposition()">supprimer</button>
+    </div>
+    <br>
+
     <div *ngIf="propo4">
-        <mat-form-field>
-            <input matInput [(ngModel)]="proposition4" placeholder="Proposition 4">
-        </mat-form-field>
-        <mat-checkbox [(ngModel)]="repJuste4">Bonne proposition ?</mat-checkbox>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button color="primary" (click)="supprimerProposition()">supprimer</button>
-    </div><br>
+      <mat-form-field>
+        <input matInput [(ngModel)]="proposition4" placeholder="Proposition 4">
+      </mat-form-field>
+      <mat-checkbox color="primary" (click)="repJuste4()">Bonne proposition ?</mat-checkbox>
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <button mat-raised-button color="primary" (click)="supprimerProposition()">supprimer</button>
+    </div>
+    <br>
 
     <button mat-raised-button color="primary" (click)="ajouterProposition()" *ngIf="buttonAjouter">Ajouter une proposition</button>
 

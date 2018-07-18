@@ -31,12 +31,15 @@
     table{
         width: 100%;
         //font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
 
-    span{
-        text-decoration: underline; 
-        color: rgb(58, 58, 221); 
-        cursor: pointer;
+        .buttons{
+            display: flex;
+            .button{
+                text-decoration: underline; 
+                color: rgb(58, 58, 221); 
+                cursor: pointer;
+            } 
+        }
     }
 
     button{

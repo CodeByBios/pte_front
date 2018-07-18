@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Candidat } from '../models/candidat'
 
 
@@ -13,7 +13,7 @@ export class ResultatComponent implements OnInit {
   displayedColumns: string[] = ['noms', 'prenoms', 'responsables de test', 'dates', 'notes', 'actions'];
   dataSource: MatTableDataSource<Candidat>;
 
-  constructor() { 
+  constructor() {
     let candidat = new Candidat();
     let candidat2 = new Candidat();
 
@@ -24,7 +24,7 @@ export class ResultatComponent implements OnInit {
     candidat2.nom = "TONGLE";
     candidat2.prenom = "Michael";
     candidat2.note = 13;
-    
+
     const candidats = [candidat, candidat2];
     this.dataSource = new MatTableDataSource(candidats);
   }
@@ -49,8 +49,11 @@ export class ResultatComponent implements OnInit {
     }
   }
 
-  visualiser(){
-    console.log("resultat");
+  visualiser(row: any) {
+    console.log("visualiser");
   }
 
+  supprimer(row: any) {
+    console.log("supprimer");
+  }
 }

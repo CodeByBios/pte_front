@@ -1,8 +1,7 @@
 import {Question} from './question';
 
 export class Reponse {
-    idReponse: number;
+    id: number;
     libelle: string;
     reponseJuste: boolean;
-    question: Question;
 }

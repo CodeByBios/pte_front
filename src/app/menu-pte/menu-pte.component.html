@@ -3,14 +3,14 @@
   <br>
 
   <mat-form-field>
-    <mat-select placeholder="Niveau d'études">
+    <mat-select placeholder="Niveau d'études" [(ngModel)]="niveauSelected">
       <mat-option value="{{niveau.id}}" *ngFor="let niveau of niveaux">{{niveau.libelle}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Type de test">
-      <mat-option (click)="onItemChange(typeQuestion)" value="{{typeQuestion.libelle}}" *ngFor="let typeQuestion of typeQuestions">{{typeQuestion.libelle}}</mat-option>
+    <mat-select placeholder="Type de test" [(ngModel)]="typeQuestionSelected">
+      <mat-option (click)="onItemChange(typeQuestion)" value="{{typeQuestion.id}}" *ngFor="let typeQuestion of typeQuestions">{{typeQuestion.libelle}}</mat-option>
     </mat-select>
   </mat-form-field>
 
