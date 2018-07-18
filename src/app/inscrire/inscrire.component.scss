@@ -1,0 +1,17 @@
+.all{
+    padding: 40px;
+    display: grid;
+
+    p{
+        font-size: 18px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    div{
+        margin: auto;
+    }
+    button{
+        width: 150px;
+        margin: auto;
+        background-color : rgb(58, 58, 221);
+    }
+}

@@ -1,22 +1,23 @@
 <div class="all">
   <div class=intro>
       <img src="../assets/sodifrance.jpg" alt="sodifrance">
-      <h2> Plateforme de test d'entretien </h2>
+      <h2> Plateforme de test pour entretien </h2>
   </div>
   <div class="connexion">
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Login</mat-label>
-        <input matInput placeholder="" ngModel [(ngModel)]="login">
+        <input matInput placeholder="" [(ngModel)]="login">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input type="password" matInput placeholder="" ngModel [(ngModel)]="password">
+        <input type="password" matInput placeholder="" [(ngModel)]="password">
       </mat-form-field>
     </p>
   
+    <span *ngIf="erreur">Login ou mot de passe incorret !</span>
     <button mat-raised-button color="primary" (click)="getConnexion()">Connexion</button>
   </div>
 </div>

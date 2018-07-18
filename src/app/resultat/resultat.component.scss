@@ -1,0 +1,20 @@
+.all{
+    padding: 40px;
+
+    table{
+        width: 100%;
+        //font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    span{
+        text-decoration: underline; 
+        color: rgb(58, 58, 221); 
+        cursor: pointer;
+    }
+
+    mat-form-field{
+        width: 100%;
+    }
+    button {
+        background-color : rgb(58, 58, 221);
+    }
+}

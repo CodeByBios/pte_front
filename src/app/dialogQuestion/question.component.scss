@@ -1,0 +1,28 @@
+.all{
+    width: 600px;
+    padding: 40px;
+}
+
+mat-dialog-content{
+    display: grid;
+
+    div{
+        mat-form-field{
+            width: 100%;
+        }
+    }
+}
+
+mat-radio-button{
+    margin: 10px;
+  }
+
+mat-dialog-actions{
+   display: flex;
+
+   button{
+       margin: auto;
+       background-color : rgb(58, 58, 221);
+   }
+}
+

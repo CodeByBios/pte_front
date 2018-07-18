@@ -1,0 +1,85 @@
+.bulle{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: rgb(94, 94, 214);
+        text-align: center;
+        float: right;
+        margin-left: 90%;
+        margin-top: 400px;
+        position: fixed;
+        p{
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 35px;
+        }
+    }
+
+.bulle:hover{
+    cursor: pointer;
+}
+
+.all{
+    display: grid;
+
+    .temps{
+        width: 100px;
+        height: 50px;
+        background-color: rgb(94, 94, 214);
+        text-align: center;
+        margin: auto;
+        position: unset;
+
+        p{
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 10px;
+        }
+    }
+
+    article{
+        .questions{
+            padding: 40px 40px 20px 40px;
+            border-bottom: 0.5px solid rgb(231, 231, 231);
+    
+            td{
+                width: 300px;
+                height: 40px;
+            }
+            .intitule{
+    
+                font-size: 20px; 
+                
+                span{
+                    font-weight: bold;
+                }
+            }  
+        }
+        .questions:last-child{
+            border-bottom: none;
+        }
+    }
+    
+}
+
+.button{
+    display: grid;
+
+    button{
+        width: 150px;
+        margin: auto;
+        background-color : rgb(58, 58, 221);
+    }
+}
+
+
+footer{
+    height: 30px,;
+    line-height: 30px;
+    text-align: center;
+    background-color:  rgb(128, 123, 123);
+}
+
+li:last-child {
+    background-color: lime;
+  }

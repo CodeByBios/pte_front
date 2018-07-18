@@ -1,0 +1,48 @@
+.all{
+    padding: 40px;
+
+    mat-radio-group{
+        display: inline-flex;
+        flex-direction: column;
+
+        .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+            border-color: blue;
+        }
+    
+        .mat-radio-button.mat-accent .mat-radio-inner-circle {
+            background-color: blue;
+        }
+    }
+
+    mat-radio-button{
+        margin: 10px;
+        
+      }
+    
+    .example-selected-value{
+        margin: 15px 0;
+    }
+
+    mat-form-field{
+        font-size: 14px;
+        width: 100%;
+    }
+
+    table{
+        width: 100%;
+        //font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    span{
+        text-decoration: underline; 
+        color: rgb(58, 58, 221); 
+        cursor: pointer;
+    }
+
+    button{
+        background-color : rgb(58, 58, 221);
+    }
+    .ajoutButton{
+        float: right;
+    }
+}

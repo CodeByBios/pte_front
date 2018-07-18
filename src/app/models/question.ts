@@ -8,7 +8,7 @@ export class Question {
     idQuestion: number;
     libelle: string;
     etat: boolean;
-    reponse: Reponse;
+    reponse: Reponse[];
     niveau: Niveau;
     langage: Langage;
     typequestion: TypeQuestion;

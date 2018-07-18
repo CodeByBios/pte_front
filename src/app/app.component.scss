@@ -1,0 +1,77 @@
+#entete{
+    display: none;
+}
+.head{
+    display: grid;
+    width: 100%;
+
+    .photo{
+        width: 100%;
+        height: 120px;
+        background: rgb(128, 123, 123);
+
+        img{
+            padding: 20px;
+        }
+        .user{
+            float: right;
+            display: flex;
+
+            .iuser{
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+
+    .titre{
+        width: 100%;
+        height: 50px;
+        background: rgb(128, 123, 123);
+
+        h2{
+            float: right;
+            margin-right: 20px;
+            margin-top: 0px;
+            font-size: 36px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(56, 55, 55) !important;
+            margin-bottom: 0px;
+        }
+    }
+
+    .nav{
+        width: 100%;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgb(56, 55, 55) !important;
+        }
+        li {
+            float: left;
+            width: 280px;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Change the link color to #111 (black) on hover */
+        li a:hover {
+            background-color: rgb(58, 58, 221);
+            //background-image:linear-gradient(to right, rgb(155, 155, 253), rgb(0, 0, 189));
+        }
+
+        .active {
+            background-color: rgb(58, 58, 221);
+           //background-image:linear-gradient(to right, rgb(155, 155, 253), rgb(0, 0, 189));
+        }
+    }
+}

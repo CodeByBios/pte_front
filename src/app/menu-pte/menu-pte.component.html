@@ -1,3 +1,32 @@
-<p>
-  menu-pte works!
-</p>
+<div class="all">
+  <p> Veuillez choisir le niveau d'études et le type de test que vous souhaitez demarrer.</p>
+  <br>
+
+  <mat-form-field>
+    <mat-select placeholder="Niveau d'études">
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Type de test">
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p> Vous souhaitez demarrer un test technique, choississez les technologies qui seront liés à ce test.</p>
+
+  <div>
+    <mat-checkbox color="primary">Java</mat-checkbox>
+    <mat-checkbox color="primary" class="check">C++</mat-checkbox>
+    <mat-checkbox color="primary" class="check">.Net</mat-checkbox>
+    <mat-checkbox color="primary" class="check">Angular</mat-checkbox>
+    <mat-checkbox color="primary" class="check">SQL</mat-checkbox>
+  </div>
+  <br>
+  <br>
+
+  <div>
+    <button mat-raised-button color="primary" (click)="suivant()">Suivant</button>
+  </div>
+</div>

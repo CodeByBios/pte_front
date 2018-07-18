@@ -1,0 +1,59 @@
+<div class="all">
+  <mat-dialog-content>
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="libelle" placeholder="Libelle" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="code" placeholder="Code (pour les questions du type : Que fait le code ci-dessous ?)"></textarea>
+    </mat-form-field>
+
+    <mat-radio-group [(ngModel)]="etat" *ngIf="modifEtat">
+      <mat-radio-button color="primary" value="valider" disable> Validée </mat-radio-button>
+      <mat-radio-button color="primary" value="nonValidation"> En cours de validation </mat-radio-button>
+    </mat-radio-group>
+    <br>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="proposition1" placeholder="Proposition 1" required>
+    </mat-form-field>
+    <mat-checkbox color="primary" [(ngModel)]="repJuste1">Bonne proposition ?</mat-checkbox>
+    <br>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="proposition2" placeholder="Proposition 2" required>
+    </mat-form-field>
+    <mat-checkbox color="primary" [(ngModel)]="repJuste2">Bonne proposition ?</mat-checkbox> 
+    <br>
+    
+    <div *ngIf="propo3">
+        <mat-form-field>
+            <input matInput [(ngModel)]="proposition3" placeholder="Proposition 3">
+        </mat-form-field>
+        <mat-checkbox color="primary" [(ngModel)]="repJuste3">Bonne proposition ?</mat-checkbox>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)="supprimerProposition()">supprimer</button>
+    </div><br>
+    
+    <div *ngIf="propo4">
+        <mat-form-field>
+            <input matInput [(ngModel)]="proposition4" placeholder="Proposition 4">
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="repJuste4">Bonne proposition ?</mat-checkbox>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)="supprimerProposition()">supprimer</button>
+    </div><br>
+
+    <button mat-raised-button color="primary" (click)="ajouterProposition()" *ngIf="buttonAjouter">Ajouter une proposition</button>
+
+  </mat-dialog-content>
+
+  <br>
+  <br>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Annuler</button>
+    <button mat-raised-button color="primary" (click)="valider()">Valider</button>
+  </mat-dialog-actions>
+</div>

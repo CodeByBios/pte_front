@@ -12,15 +12,19 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  ngOnInit() {
-  }
-
+  erreur: boolean;
   login: string;
   password: string;
   connexion = new Connexion();
   reponse: string;
   currentUser: Utilisateur;
 
+  ngOnInit() {
+    this.erreur = false;
+    let element = document.getElementById("entete");
+    element.style.display = "none";
+  }
+  
   constructor(private utilisateurService: UtilisateurService, private router: Router) { }
 
   getConnexion(){
@@ -32,12 +36,15 @@ export class LoginComponent implements OnInit {
       console.log(this.reponse);
 
       if(this.reponse !== "refuse"){
+        this.erreur = true;
         this.utilisateurService.getUtilisateur(this.connexion.login).subscribe(rep => {
           this.currentUser = rep;
           console.log(this.currentUser);
-          this.router.navigateByUrl("/lancerTest/"+this.currentUser.id);
+          this.router.navigateByUrl("/lancerUnTest/"+this.currentUser.id);
         })
-      } 
+      }else{
+        this.erreur = true;
+      }
 
     },
     (error: any) => {

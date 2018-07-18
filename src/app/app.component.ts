@@ -3,6 +3,14 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+
+  idUser: any;
+
+  ngOnInit() {
+    let element = document.getElementsByClassName("user");
+     this.idUser = element.item(0).id;
+  }
+}

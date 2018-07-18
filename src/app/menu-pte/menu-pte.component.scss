@@ -1,0 +1,18 @@
+
+.all{
+        padding: 40px;
+        display: grid;
+
+        p{
+            font-size: 18px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .check{
+            margin-left: 20px;
+        }
+        button{
+            width: 150px;
+            float: right;
+            background-color : rgb(58, 58, 221);
+        }
+}

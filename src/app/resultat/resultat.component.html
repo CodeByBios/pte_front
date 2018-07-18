@@ -1,0 +1,47 @@
+<div class="all">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="noms">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMS </th>
+        <td mat-cell *matCellDef="let row"> {{row.nom}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="prenoms">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PRENOMS </th>
+        <td mat-cell *matCellDef="let row"> {{row.prenom}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="responsables de test">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> RESPONSABLES DE TEST </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dates">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> DATES </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> NOTES </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.note}} </td>
+      </ng-container>
+
+      <ng-container class="action" matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-raised-button color="primary" (click)="visualiser()">Visualiser</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

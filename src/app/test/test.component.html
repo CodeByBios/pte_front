@@ -1,0 +1,50 @@
+<div class="test">
+  <div class="bulle" *ngIf="bulle" (click)="scrollToTop()">
+    <p>20 : 00</p>
+  </div>
+  <div class="all">
+    <div class="temps">
+      <p> 20 : 00 </p>
+    </div>
+    <article>
+      <div class="questions" *ngFor="let question of questions">
+        <div class="intitule">
+          <span>Question {{question}}:</span> C'est quoi la difference entre Java et J2E ?
+        </div>
+
+        <div class="code"></div>
+
+        <br>
+        <table class="tab">
+          <tr>
+            <td class="first">
+              <mat-checkbox color="primary" class="check">Je ne sais pas</mat-checkbox>
+            </td>
+            <td class="second">
+              <mat-checkbox color="primary" class="check">Je savais</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td class="first">
+              <mat-checkbox color="primary" class="check">J'ai oublié</mat-checkbox>
+            </td>
+            <td class="second">
+              <mat-checkbox color="primary" class="check">Je ne me rappelle plus</mat-checkbox>
+            </td>
+          </tr>
+        </table>​​​
+      </div>
+    </article>
+
+    <br>
+  </div>
+</div>
+
+<div class="button">
+  <button mat-raised-button color="primary" (click)="valider()">Valider le test</button>
+</div>
+<br>
+<br>
+<footer>
+  @sodifrance 2018
+</footer>
