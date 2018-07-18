@@ -1,4 +1,4 @@
 export class TypeQuestion {
-    idTypeQuestion: number;
+    id: number;
     libelle: string;
 }

@@ -7,8 +7,11 @@
             font-size: 18px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .check{
+        .mat-checkbox{
             margin-left: 20px;
+        }
+        mat-checkbox:first-child{
+            margin-left: 0px;
         }
         button{
             width: 150px;

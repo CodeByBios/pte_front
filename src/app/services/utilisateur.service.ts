@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { API_ENDPOINT_UTILISATEUR } from '../../environments/environment';
 import { Utilisateur } from '../models/utilisateur';
 import { Connexion } from '../models/connexion';
-/**
- * Service managing tags API
- */
+
 @Injectable({
     providedIn: 'root'
 })
@@ -19,7 +17,7 @@ export class UtilisateurService {
 
 
     /**
-     * get a Utilisateur by id
+     * get a Utilisateur by login
      * @param login
      */
     getUtilisateur(login: string): Observable<any> {

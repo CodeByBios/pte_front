@@ -4,24 +4,20 @@
 
   <mat-form-field>
     <mat-select placeholder="Niveau d'études">
-      <mat-option value="option">Option</mat-option>
+      <mat-option value="{{niveau.id}}" *ngFor="let niveau of niveaux">{{niveau.libelle}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-select placeholder="Type de test">
-      <mat-option value="option">Option</mat-option>
+      <mat-option (click)="onItemChange(typeQuestion)" value="{{typeQuestion.libelle}}" *ngFor="let typeQuestion of typeQuestions">{{typeQuestion.libelle}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <p> Vous souhaitez demarrer un test technique, choississez les technologies qui seront liés à ce test.</p>
+  <p *ngIf="langageAffiche"> Vous souhaitez demarrer un test technique, choississez les technologies qui seront liés à ce test.</p>
 
-  <div>
-    <mat-checkbox color="primary">Java</mat-checkbox>
-    <mat-checkbox color="primary" class="check">C++</mat-checkbox>
-    <mat-checkbox color="primary" class="check">.Net</mat-checkbox>
-    <mat-checkbox color="primary" class="check">Angular</mat-checkbox>
-    <mat-checkbox color="primary" class="check">SQL</mat-checkbox>
+  <div *ngIf="langageAffiche">
+    <mat-checkbox color="primary" *ngFor="let langage of langages">{{langage.libelle}}</mat-checkbox>
   </div>
   <br>
   <br>
