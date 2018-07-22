@@ -23,7 +23,7 @@
 
       <ng-container matColumnDef="dates">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> DATES </th>
-        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.date}} </td>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.date | date:'dd/MM/yyyy'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="notes">
