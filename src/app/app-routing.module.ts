@@ -13,9 +13,9 @@ const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'lancerUnTest', component: MenuPteComponent },
   { path: 'lancerUnTest/:id', component: MenuPteComponent },
-  { path: 'inscrire/:idN/:idT', component: InscrireComponent },
+  { path: 'inscrire/:idN/:idT/:idL', component: InscrireComponent },
   { path: 'inscrire/:id', component: InscrireComponent },
-  { path: 'test/:id', component: TestComponent },
+  { path: 'test/:idN/:idT/:idL/:idC', component: TestComponent },
   { path: 'testValider', component: ValiderComponent },
   { path: 'gestionQuestion', component: VisualiserComponent },
   { path: 'resultats', component: ResultatComponent }

@@ -6,6 +6,6 @@ export class Utilisateur {
     prenom: string;
     login: string;
     password: string;
-    role: Role;
+    roleDto: Role;
 
 }

@@ -1,0 +1,1 @@
+export const TEXTE_ENTETE = "Plateforme de test pour entretien";

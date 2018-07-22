@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Question} from '../models/question'
-import {Reponse} from '../models/reponse'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogQuestionComponent} from '../dialogQuestion/question.component'
-import {DialogSupprimerComponent} from '../dialogSupprimer/dialog-supprimer.component'
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Question } from '../models/question'
+import { HttpClient } from '@angular/common/http';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogQuestionComponent } from '../dialogQuestion/question.component';
+import { DialogSupprimerComponent } from '../dialogSupprimer/dialog-supprimer.component';
+import { QuestionService } from '../services/question.service';
 import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 
 @Component({
@@ -17,26 +18,12 @@ export class VisualiserComponent implements OnInit {
 
   etat: string;
   displayedColumns: string[] = ['libelles', 'etats', 'types de question', 'langages', 'niveaux', 'actions'];
+  questions: Question[] = [];
   dataSource: MatTableDataSource<Question>;
 
-  constructor(public dialog: MatDialog) {
-    let question1 = new Question();
-    let question2 = new Question();
-    let reponse = new Reponse;
-    const reponses = [reponse];
-
-    reponse.libelle = "reponse 1 test"
-
-    question1.libelle = "test tableau 1 kjdhfkhdslhnsflknvlsnvlks";
-    question1.etat = true;
-    question1.reponseDto = reponses;
-
-    question2.libelle = "test tableau 2";
-    question2.etat = true;
-
-    const questions = [question1, question2];
-    this.dataSource = new MatTableDataSource(questions);
-   }
+  constructor(public dialog: MatDialog,
+    private questionService: QuestionService,
+    private http: HttpClient) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -48,9 +35,7 @@ export class VisualiserComponent implements OnInit {
     element2.textContent = "Brice BETTY"
     element1.style.display = "initial";
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
+    this.chargerTableau(false);
     this.etat = 'nonValider';
   }
 
@@ -64,31 +49,56 @@ export class VisualiserComponent implements OnInit {
 
   ajouterQuestion(): void {
     const dialogRef = this.dialog.open(DialogQuestionComponent, {
-      data: {action: "ajouter"}
+      data: { action: "ajouter" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (this.etat === "valider") {
+        this.chargerTableau(true);
+      } else {
+        this.chargerTableau(false);
+      }
     });
   }
 
-  supprimer(row: any){
+  supprimer(row: any) {
     const dialogRef = this.dialog.open(DialogSupprimerComponent, {
-      data: {question: row}
+      data: { question: row, sujet: "question"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (this.etat === "valider") {
+        this.chargerTableau(true);
+      } else {
+        this.chargerTableau(false);
+      }
     });
   }
 
-  modifier(row: any){
+  modifier(row: any) {
     const dialogRef = this.dialog.open(DialogQuestionComponent, {
-      data: {question: row, action: "modifier"}
+      data: { question: row, action: "modifier" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (this.etat === "valider") {
+        this.chargerTableau(true);
+      } else {
+        this.chargerTableau(false);
+      }
     });
+  }
+
+  chargerTableau(actif: boolean) {
+    this.questionService.getQuestions(actif).subscribe(rep => {
+      this.questions = rep;
+      this.dataSource = new MatTableDataSource(this.questions);
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    },
+      (error: any) => {
+        console.log(error)
+      })
   }
 }

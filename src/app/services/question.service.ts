@@ -14,7 +14,7 @@ export class QuestionService {
      * @param  {HttpClient} privatehttp Local HttpClient reference
      */
     constructor(private http: HttpClient) { }
-    
+
     /**
      * new one question
      */
@@ -25,7 +25,21 @@ export class QuestionService {
     /**
      * modify one question
      */
-    ModifierQuestion(question: Question): Observable<any> {
+    modifierQuestion(question: Question): Observable<any> {
         return this.http.put(`${API_ENDPOINT_QUESTION}`, question);
+    }
+    
+    /**
+     * modify one question
+     */
+    supprimerQuestion(id: number): Observable<any> {
+        return this.http.delete(`${API_ENDPOINT_QUESTION}/${id}`,);
+    }
+
+    /**
+     * modify one question
+     */
+    getQuestions(actif: boolean): Observable<any> {
+        return this.http.get(`${API_ENDPOINT_QUESTION}/${actif}`);
     }
 }

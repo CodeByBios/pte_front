@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NiveauService } from '../services/niveau.service';
 import { LangageService } from '../services/langage.service';
@@ -6,6 +6,7 @@ import { TypeQuestionService } from '../services/type-question.service';
 import { Niveau } from '../models/niveau';
 import { Langage } from '../models/langage';
 import { TypeQuestion } from '../models/typeQuestion';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-menu-pte',
@@ -13,6 +14,11 @@ import { TypeQuestion } from '../models/typeQuestion';
   styleUrls: ['./menu-pte.component.scss']
 })
 export class MenuPteComponent implements OnInit {
+
+  displayedColumns: string[] = ['niveaux', 'questionV', 'questionN', 'questionT', 'questionL', 'questionA', 'questionF'];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private niveauService: NiveauService,
     private langageService: LangageService,
@@ -27,12 +33,19 @@ export class MenuPteComponent implements OnInit {
   typeQuestions: TypeQuestion[];
   langageAffiche: boolean;
   niveauSelected: number;
+  langageSelected: number;
   typeQuestionSelected: number;
+  dataSource: MatTableDataSource<any>;
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('id') !== null) {
       let IdUserElement = document.getElementsByClassName("user");
       IdUserElement.item(0).id = this.route.snapshot.paramMap.get('id');
+      let niveaux = ["hhh","hhhh"]; 
+
+      this.dataSource = new MatTableDataSource(niveaux);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }
 
     let menuElement = document.getElementById("entete");
@@ -65,15 +78,15 @@ export class MenuPteComponent implements OnInit {
   }
 
   suivant() {
-    this.router.navigateByUrl("/inscrire/" + this.niveauSelected + "/" + this.typeQuestionSelected);
-    console.log(this.typeQuestionSelected);
-    console.log(this.niveauSelected);
+    this.router.navigateByUrl("/inscrire/" + this.niveauSelected + "/" + this.typeQuestionSelected + "/" + this.langageSelected);
   }
 
   onItemChange(typeQuestion: any) {
     if (typeQuestion.libelle === "Technique") {
+      this.langageSelected = 1;
       this.langageAffiche = true;
     } else {
+      this.langageSelected = 7;
       this.langageAffiche = false;
     }
 

@@ -9,30 +9,18 @@
     <article>
       <div class="questions" *ngFor="let question of questions">
         <div class="intitule">
-          <span>Question {{question}}:</span> C'est quoi la difference entre Java et J2E ?
+          <span>Question {{question.numero}}:</span> {{question.libelle}}
         </div>
 
+        <br>
         <div class="code"></div>
 
         <br>
-        <table class="tab">
-          <tr>
-            <td class="first">
-              <mat-checkbox color="primary" class="check">Je ne sais pas</mat-checkbox>
-            </td>
-            <td class="second">
-              <mat-checkbox color="primary" class="check">Je savais</mat-checkbox>
-            </td>
-          </tr>
-          <tr>
-            <td class="first">
-              <mat-checkbox color="primary" class="check">J'ai oublié</mat-checkbox>
-            </td>
-            <td class="second">
-              <mat-checkbox color="primary" class="check">Je ne me rappelle plus</mat-checkbox>
-            </td>
-          </tr>
-        </table>​​​
+        <div class="checkboxes">
+          <div class="checkbox" *ngFor="let reponse of question.reponseDto">
+            <mat-checkbox color="primary" class="check">{{reponse.libelle}}</mat-checkbox>
+          </div>
+        </div>
       </div>
     </article>
 

@@ -24,6 +24,14 @@ export class UtilisateurService {
         return this.http.get(`${API_ENDPOINT_UTILISATEUR}/${login}`, {responseType: 'json'});
     }
 
+     /**
+     * get a Utilisateur by login
+     * @param id
+     */
+    getUtilisateurById(id: number): Observable<any> {
+        return this.http.get(`${API_ENDPOINT_UTILISATEUR}/user/${id}`, {responseType: 'json'});
+    }
+
     /**
      * create  new Utilisateur
      * @param utilisateur

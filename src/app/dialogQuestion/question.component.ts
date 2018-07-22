@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { QuestionService } from '../services/question.service'
 import { Question } from '../models/question';
@@ -18,7 +18,7 @@ import { Reponse } from '../models/reponse';
 })
 export class DialogQuestionComponent implements OnInit {
 
-  niveaux: Niveau[];
+  niveauxHtml: any[];
   langages: Langage[];
   typeQuestions: TypeQuestion[];
   langageAffiche: boolean;
@@ -26,6 +26,14 @@ export class DialogQuestionComponent implements OnInit {
   propo3: boolean;
   propo4: boolean;
   modifEtat: boolean;
+  affiche: boolean;
+  desactiverQuestion: boolean;
+  pro1Check: boolean;
+  pro2Check: boolean;
+  pro3Check: boolean;
+  pro4Check: boolean;
+  typeStatus: string;
+  langageStatus: string;
 
   libelle: string;
   code: string;
@@ -51,27 +59,168 @@ export class DialogQuestionComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+
+    this.reponse1.reponseJuste = false;
+    this.reponse2.reponseJuste = false;
+    this.reponse3.reponseJuste = false;
+    this.reponse4.reponseJuste = false;
+
     if (this.data.action === "ajouter") {
-      let element = document.getElementsByTagName("h2").item(1).textContent = "Ajout d'une question";
+      document.getElementsByTagName("h2").item(1).textContent = "Ajout d'une question";
       this.modifEtat = false;
+      this.affiche = true;
       this.buttonAjouter = true;
-    }
-    else {
+
+    } else {
       document.getElementsByTagName("h2").item(1).textContent = "Modification d'une question";
+      console.log(this.data.question);
+
+      this.affiche = true;
       this.modifEtat = true;
       this.buttonAjouter = false;
+      this.langageAffiche = true;
       this.libelle = this.data.question.libelle;
       this.code = this.data.question.code;
+      this.typeStatus = ""+this.data.question.typeQuestionDto.id;
+      this.typeQuestionSelected = this.data.question.typeQuestionDto;
+      this.langageStatus = ""+this.data.question.langageDto[0].id;
+      this.langageSelected = this.data.question.langageDto[0];
+
+      let reponses = [];
+      reponses = this.data.question.reponseDto;
+      let i = 0;
+      console.log(reponses.length);
+
+      if (reponses.length === 4) {
+        this.proposition1 = reponses[i].libelle;
+        this.reponse1.id = reponses[i].id;
+        this.reponse1.libelle = reponses[i].libelle;
+        if (reponses[i].reponseJuste === true) {
+          this.pro1Check = true;
+          this.reponse1.reponseJuste = true;
+        } else {
+          this.pro1Check = false;
+          this.reponse1.reponseJuste = false;
+        }
+
+        this.proposition2 = reponses[i + 1].libelle;
+        this.reponse2.id = reponses[i + 1].id;
+        this.reponse2.libelle = reponses[i + 1].libelle;
+        if (reponses[i + 1].reponseJuste === true) {
+          this.pro2Check = true;
+          this.reponse2.reponseJuste = true;
+        } else {
+          this.pro2Check = false;
+          this.reponse2.reponseJuste = false;
+        }
+
+        this.propo3 = true;
+        this.proposition3 = reponses[i + 2].libelle;
+        this.reponse3.id = reponses[i + 2].id;
+        this.reponse3.libelle = reponses[i + 2].libelle;
+        if (reponses[i + 2].reponseJuste === true) {
+          this.pro3Check = true;
+          this.reponse3.reponseJuste = true;
+        } else {
+          this.pro3Check = false;
+          this.reponse3.reponseJuste = false;
+        }
+
+        this.propo4 = true;
+        this.proposition4 = reponses[i + 3].libelle;
+        this.reponse4.id = reponses[i + 3].id;
+        this.reponse4.libelle = reponses[i + 3].libelle;
+        if (reponses[i + 3].reponseJuste === true) {
+          this.pro4Check = true;
+          this.reponse4.reponseJuste = true;
+        } else {
+          this.pro4Check = false;
+          this.reponse4.reponseJuste = false;
+        }
+      } else if (reponses.length === 3) {
+        this.proposition1 = reponses[i].libelle;
+        this.reponse1.id = reponses[i].id;
+        this.reponse1.libelle = reponses[i].libelle;
+        if (reponses[i].reponseJuste === true) {
+          this.pro1Check = true;
+          this.reponse1.reponseJuste = true;
+        } else {
+          this.pro1Check = false;
+          this.reponse1.reponseJuste = false;
+        }
+
+        this.proposition2 = reponses[i + 1].libelle;
+        this.reponse2.id = reponses[i + 1].id;
+        this.reponse2.libelle = reponses[i + 1].libelle;
+        if (reponses[i + 1].reponseJuste === true) {
+          this.pro2Check = true;
+          this.reponse2.reponseJuste = true;
+        } else {
+          this.pro2Check = false;
+          this.reponse2.reponseJuste = false;
+        }
+
+        this.propo3 = true;
+        this.proposition3 = reponses[i + 2].libelle;
+        this.reponse3.id = reponses[i + 2].id;
+        this.reponse3.libelle = reponses[i + 2].libelle;
+        if (reponses[i + 2].reponseJuste === true) {
+          this.pro3Check = true;
+          this.reponse3.reponseJuste = true;
+        } else {
+          this.pro3Check = false;
+          this.reponse3.reponseJuste = false;
+        }
+      } else {
+        this.proposition1 = reponses[i].libelle;
+        this.reponse1.id = reponses[i].id;
+        this.reponse1.libelle = reponses[i].libelle;
+        if (reponses[i].reponseJuste === true) {
+          this.pro1Check = true;
+          this.reponse1.reponseJuste = true;
+        } else {
+          this.pro1Check = false;
+          this.reponse1.reponseJuste = false;
+        }
+
+        this.proposition2 = reponses[i + 1].libelle;
+        this.reponse2.id = reponses[i + 1].id;
+        this.reponse2.libelle = reponses[i + 1].libelle;
+        if (reponses[i + 1].reponseJuste === true) {
+          this.pro2Check = true;
+          this.reponse2.reponseJuste = true;
+        } else {
+          this.pro2Check = false;
+          this.reponse2.reponseJuste = false;
+        }
+      }
+
       if (this.data.question.etat === true) {
         this.etat = "valider";
+        this.desactiverQuestion = true;
       }
       else {
         this.etat = "nonValider";
+        this.desactiverQuestion = false;
       }
     }
 
     this.niveauService.getNiveau().subscribe(rep => {
-      this.niveaux = rep;
+      this.niveauxHtml = rep;
+
+      if (this.data.action === "modifier") {
+        for (let i = 0; i < this.niveauxHtml.length; ++i) {
+          for (let j = 0; j < this.data.question.niveauDto.length; ++j) {
+            if (this.niveauxHtml[i].libelle === this.data.question.niveauDto[j].libelle) {
+              this.selectedNiveau(this.niveauxHtml[i]);
+              this.niveauxHtml[i].isCheck = true;
+              break;
+            } else {
+              this.niveauxHtml[i].isCheck = false;
+            }
+          }
+        }
+      }
     },
       (error: any) => {
         console.log(error)
@@ -90,11 +239,6 @@ export class DialogQuestionComponent implements OnInit {
       (error: any) => {
         console.log(error)
       })
-
-    this.reponse1.reponseJuste = false;
-    this.reponse2.reponseJuste = false;
-    this.reponse3.reponseJuste = false;
-    this.reponse4.reponseJuste = false;
   }
 
   onNoClick(): void {
@@ -136,7 +280,6 @@ export class DialogQuestionComponent implements OnInit {
       this.reponses.push(this.reponse4);
     }
 
-    question.etat = false;
     question.libelle = this.libelle;
     question.niveauDto = this.niveauSelected;
     question.reponseDto = this.reponses;
@@ -155,15 +298,31 @@ export class DialogQuestionComponent implements OnInit {
       question.langageDto = langages;
     }
 
-    console.log(question);
+    if (this.data.action === "ajouter") {
+      question.etat = false;
+      console.log(question);
+      this.questionService.postQuestion(question).subscribe(rep => {
+        console.log(rep);
+      },
+        (error: any) => {
+          console.log(error)
+        });
 
-    this.questionService.postQuestion(question).subscribe(rep => {
-      console.log(rep);
-    },
-    (error: any) => {
-      console.log(error)
-    })
-
+    } else {
+      if (this.etat === "valider") {
+        question.etat = true;
+      } else {
+        question.etat = false;
+      }
+      question.id = this.data.question.id;
+      console.log(question);
+      this.questionService.modifierQuestion(question).subscribe(rep => {
+        console.log(rep);
+      },
+        (error: any) => {
+          console.log(error)
+        });
+    }
     this.dialogRef.close({ refresh: true });
   }
 
@@ -182,19 +341,22 @@ export class DialogQuestionComponent implements OnInit {
 
   selectedNiveau(pniveau: Niveau) {
     let ajout: boolean = true;
+    let niveau = new Niveau();
+    niveau.id = pniveau.id;
+    niveau.libelle = pniveau.libelle;
 
     if (this.niveauSelected.length === 0) {
-      this.niveauSelected.push(pniveau);
+      this.niveauSelected.push(niveau);
     }
     else {
       for (let i = 0; i < this.niveauSelected.length; ++i) {
-        if (this.niveauSelected[i].libelle === pniveau.libelle) {
+        if (this.niveauSelected[i].libelle === niveau.libelle) {
           this.niveauSelected.splice(i, 1);
           ajout = false;
         }
       }
       if (ajout === true) {
-        this.niveauSelected.push(pniveau);
+        this.niveauSelected.push(niveau);
       }
     }
   }
@@ -230,4 +392,5 @@ export class DialogQuestionComponent implements OnInit {
       this.reponse4.reponseJuste = true;
     }
   }
+
 }

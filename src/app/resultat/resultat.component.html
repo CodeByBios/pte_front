@@ -2,6 +2,7 @@
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
   </mat-form-field>
+  
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -17,7 +18,7 @@
 
       <ng-container matColumnDef="responsables de test">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> RESPONSABLES DE TEST </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.utilisateurDto.nom}}&nbsp;&nbsp;{{row.utilisateurDto.prenom}}  </td>
       </ng-container>
 
       <ng-container matColumnDef="dates">
