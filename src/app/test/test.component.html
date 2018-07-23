@@ -18,13 +18,13 @@
         <br>
         <div class="checkboxes">
           <div class="checkbox" *ngFor="let reponse of question.reponseDto">
-            <mat-checkbox color="primary" class="check">{{reponse.libelle}}</mat-checkbox>
+            <mat-checkbox (click)="repondre(question, reponse)" color="primary" class="check">{{reponse.libelle}}</mat-checkbox>
           </div>
         </div>
       </div>
     </article>
 
-    <br>
+    <br> 
   </div>
 </div>
 

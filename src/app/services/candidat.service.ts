@@ -24,6 +24,13 @@ export class CandidatService {
     }
 
     /**
+     * get one candidat
+     */
+    getCandidat(idCandidat: number): Observable<any> {
+        return this.http.get(`${API_ENDPOINT_CANDIDAT}/${idCandidat}`, {responseType: 'json'});
+    }
+
+    /**
      * new candidat
      */
     newCandidat(candidat: Candidat): Observable<any> {
@@ -42,5 +49,12 @@ export class CandidatService {
      */
     deleteCandidat(id: Candidat): Observable<any> {
         return this.http.delete(`${API_ENDPOINT_CANDIDAT}/${id}`);
+    }
+
+     /**
+     * delete one candidat
+     */
+    modifierCandidat(candidat: Candidat): Observable<any> {
+        return this.http.put(`${API_ENDPOINT_CANDIDAT}` , candidat);
     }
 }

@@ -29,13 +29,8 @@ export class ResultatComponent implements OnInit {
 
     element2.textContent = "Brice BETTY"
     element1.style.display = "initial";
-    //element3[0].textContent = "Nombre par page";
-   
-    this.chargerTableau();
 
-    let element3 = document.getElementsByClassName("mat-paginator-page-size-label");
-    console.log(element3[0]);
-    //element3[0].textContent = "Nombre par page";
+    this.chargerTableau();
   }
 
   applyFilter(filterValue: string) {

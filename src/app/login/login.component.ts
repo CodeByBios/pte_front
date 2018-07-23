@@ -37,17 +37,18 @@ export class LoginComponent implements OnInit {
       this.reponse = rep; 
       console.log(this.reponse);
 
-      if(this.reponse !== "refuse"){
+      if(this.reponse === 'refuse'){
         this.erreur = true;
+      }
+
+      if(this.reponse !== "refuse"){
+        this.erreur = false;
         this.utilisateurService.getUtilisateur(this.connexion.login).subscribe(rep => {
           this.currentUser = rep;
           console.log(this.currentUser);
           this.router.navigateByUrl("/lancerUnTest/"+this.currentUser.id);
         })
-      }else{
-        this.erreur = true;
       }
-
     },
     (error: any) => {
       console.log(error)

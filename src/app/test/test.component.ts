@@ -4,6 +4,7 @@ import { HostListener } from "@angular/core";
 import { CandidatService } from '../services/candidat.service'
 import { Candidat } from '../models/candidat';
 import { Question } from '../models/question';
+import { QuestionRepJuste } from '../models/questionRepJuste'
 
 @Component({
   selector: 'app-test',
@@ -12,22 +13,25 @@ import { Question } from '../models/question';
 })
 export class TestComponent implements OnInit {
 
+  note: number = 0;
   idNiveau: number;
   compteurQuestion: number;
   idType: number;
   idLangage: number;
   idCandidat: number;
-  questions: Question[];
+  questions: any;
   bulle: boolean;
+  questionsReponseJuste: QuestionRepJuste[] = [];
+  questionsReponseCandidat: QuestionRepJuste[] = [];
 
-  constructor(private route: ActivatedRoute, 
-              private router: Router,
-              private candidatService: CandidatService) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private candidatService: CandidatService) { }
 
   ngOnInit() {
     let element = document.getElementById("nav");
     let element1 = document.getElementById("entete");
-    
+
     element.style.display = "none";
     element1.style.display = "initial";
 
@@ -37,24 +41,64 @@ export class TestComponent implements OnInit {
     this.idCandidat = +this.route.snapshot.paramMap.get('idC');
     let compteurQuestion = 0;
 
-    this.candidatService.createTest(this.idNiveau,this.idLangage,this.idType,this.idCandidat).subscribe(rep => {
-      
+    this.candidatService.createTest(this.idNiveau, this.idLangage, this.idType, this.idCandidat).subscribe(rep => {
+
       for (let i = 0; i < rep.length; ++i) {
-          rep[i].numero = compteurQuestion+1;
-          compteurQuestion++;
+        rep[i].numero = compteurQuestion + 1;
+        compteurQuestion++;
       }
 
       this.questions = rep;
-      console.log(this.questions);
-    },
-    (error: any) => {
-      console.log(error)
-    }); 
 
+      for (let i = 0; i < this.questions.length; ++i) {
+        let question = new QuestionRepJuste();
+        question.numero = this.questions[i].numero;
+        question.libelle = this.questions[i].libelle;
+        question.reponses = [];
+
+        for (let j = 0; j < this.questions[i].reponseDto.length; ++j) {
+          if (this.questions[i].reponseDto[j].reponseJuste === true) {
+            question.reponses.push(this.questions[i].reponseDto[j]);
+          }
+        }
+
+        this.questionsReponseJuste.push(question);
+      }
+  
+      console.log(this.questionsReponseJuste);
+    },
+      (error: any) => {
+        console.log(error)
+      });
   }
 
   valider() {
     this.router.navigateByUrl("/testValider");
+
+    console.log(this.questionsReponseCandidat);
+
+    for (let i = 0; i < this.questionsReponseCandidat.length; ++i){
+      for (let j = 0; j < this.questionsReponseJuste.length; ++j){
+        if(this.questionsReponseCandidat[i].numero === this.questionsReponseJuste[j].numero){
+          if(this.questionsReponseCandidat[i].reponses.length === this.questionsReponseJuste[j].reponses.length){
+            this.compare(this.questionsReponseCandidat[i], this.questionsReponseJuste[j]);
+          }
+        }
+      }
+    }
+
+    this.candidatService.getCandidat(this.idCandidat).subscribe(rep => {
+        rep.note = this.note;
+        console.log(rep);
+        
+        this.candidatService.modifierCandidat(rep).subscribe(rep => { console.log(rep); },
+          (error: any) => {
+            console.log(error)
+          });
+    },
+      (error: any) => {
+        console.log(error)
+      });
   }
 
   @HostListener("window:scroll", [])
@@ -74,5 +118,64 @@ export class TestComponent implements OnInit {
         window.scrollTo(0, currentScroll - (currentScroll / 5));
       }
     })();
+  }
+
+  repondre(pQuestion: any, pReponse: any) {
+    let cpt = 0;
+
+    if (this.questionsReponseCandidat.length === 0) {
+      let question = new QuestionRepJuste();
+      question.numero = pQuestion.numero;
+      question.libelle = pQuestion.libelle;
+      question.reponses = [];
+      question.reponses.push(pReponse);
+
+      this.questionsReponseCandidat.push(question);
+    } else {
+
+      for (let i = 0; i < this.questionsReponseCandidat.length; ++i) {
+        if (this.questionsReponseCandidat[i].numero === pQuestion.numero) {
+          cpt++;
+          if (this.questionsReponseCandidat[i].reponses.includes(pReponse)) {
+            for (let j = 0; j < this.questionsReponseCandidat[i].reponses.length; ++j) {
+              if (this.questionsReponseCandidat[i].reponses[j].libelle === pReponse.libelle) {
+                this.questionsReponseCandidat[i].reponses.splice(j, 1);
+              }
+            }
+          }else{
+            this.questionsReponseCandidat[i].reponses.push(pReponse);
+          }
+          break;
+        } 
+      }
+
+      if(cpt === 0){
+        let question = new QuestionRepJuste();
+        question.numero = pQuestion.numero;
+        question.libelle = pQuestion.libelle;
+        question.reponses = [];
+        question.reponses.push(pReponse);
+  
+        this.questionsReponseCandidat.push(question);
+      }
+    }
+  }
+
+
+  compare(pCandidat: QuestionRepJuste, pReponseJuste: QuestionRepJuste){
+    let n = pCandidat.reponses.length;
+    let cpt = 0;
+    
+    for (let i = 0; i < n; ++i) {
+      for (let j = 0; j < n; ++j) {
+        if(pCandidat.reponses[i].libelle === pReponseJuste.reponses[j].libelle){
+           cpt++;
+        }
+      }
+    }
+
+    if(cpt === n){
+      this.note++;
+    }
   }
 }
