@@ -44,6 +44,7 @@ export class MenuPteComponent implements OnInit {
       let niveaux = ["hhh","hhhh"]; 
 
       this.dataSource = new MatTableDataSource(niveaux);
+      this.paginator._intl.itemsPerPageLabel = "Nombre par page :"
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }

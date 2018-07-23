@@ -13,7 +13,6 @@ import { DialogSupprimerComponent } from '../dialogSupprimer/dialog-supprimer.co
 })
 
 export class ResultatComponent implements OnInit {
-
   candidats: Candidat[] = [];
   displayedColumns: string[] = ['noms', 'prenoms', 'responsables de test', 'dates', 'notes', 'actions'];
   dataSource: MatTableDataSource<Candidat>;
@@ -26,11 +25,17 @@ export class ResultatComponent implements OnInit {
   ngOnInit() {
     let element1 = document.getElementById("entete");
     let element2 = document.getElementById("user");
+    
 
     element2.textContent = "Brice BETTY"
     element1.style.display = "initial";
-
+    //element3[0].textContent = "Nombre par page";
+   
     this.chargerTableau();
+
+    let element3 = document.getElementsByClassName("mat-paginator-page-size-label");
+    console.log(element3[0]);
+    //element3[0].textContent = "Nombre par page";
   }
 
   applyFilter(filterValue: string) {
@@ -60,6 +65,7 @@ export class ResultatComponent implements OnInit {
       this.candidats = rep;
       this.dataSource = new MatTableDataSource(this.candidats);
 
+      this.paginator._intl.itemsPerPageLabel = "Nombre par page :"
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     },

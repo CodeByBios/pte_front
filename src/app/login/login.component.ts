@@ -3,6 +3,7 @@ import { Connexion } from '../models/connexion';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { Utilisateur } from '../models/utilisateur';
 import { Router } from '@angular/router';
+import { TEXTE_ENTETE } from '../fr-FR'
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   connexion = new Connexion();
   reponse: string;
   currentUser: Utilisateur;
+  texteEntete = TEXTE_ENTETE;
 
   ngOnInit() {
     this.erreur = false;

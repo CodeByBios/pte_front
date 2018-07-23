@@ -94,6 +94,7 @@ export class VisualiserComponent implements OnInit {
       this.questions = rep;
       this.dataSource = new MatTableDataSource(this.questions);
 
+      this.paginator._intl.itemsPerPageLabel = "Nombre par page :"
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     },

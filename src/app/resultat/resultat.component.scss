@@ -13,6 +13,13 @@
             } 
         }
     }
+
+    mat-paginator{
+        .mat-paginator-page-size-label {
+            display: none;
+        }
+    }
+
     span{
         text-decoration: underline; 
         color: rgb(58, 58, 221); 
