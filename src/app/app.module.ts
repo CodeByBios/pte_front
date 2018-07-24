@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MyOwnCustomModule } from './custom.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { MenuPteComponent } from './menu-pte/menu-pte.component'
@@ -30,7 +32,9 @@ import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.com
   imports: [
     BrowserModule,
     MyOwnCustomModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CommonModule,
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [],
   entryComponents: [

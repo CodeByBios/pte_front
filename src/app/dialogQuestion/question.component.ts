@@ -9,6 +9,7 @@ import { NiveauService } from '../services/niveau.service';
 import { LangageService } from '../services/langage.service';
 import { TypeQuestionService } from '../services/type-question.service';
 import { Reponse } from '../models/reponse';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -55,6 +56,7 @@ export class DialogQuestionComponent implements OnInit {
     private langageService: LangageService,
     private typeQuestionService: TypeQuestionService,
     private questionService: QuestionService,
+    private toastr: ToastrService,
     public dialogRef: MatDialogRef<DialogQuestionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -303,9 +305,11 @@ export class DialogQuestionComponent implements OnInit {
       console.log(question);
       this.questionService.postQuestion(question).subscribe(rep => {
         console.log(rep);
+        this.toastr.success('Succès', 'Question crée');
       },
         (error: any) => {
           console.log(error)
+          this.toastr.error('Erreur', 'Ressource introuvable');
         });
 
     } else {
@@ -317,10 +321,12 @@ export class DialogQuestionComponent implements OnInit {
       question.id = this.data.question.id;
       console.log(question);
       this.questionService.modifierQuestion(question).subscribe(rep => {
+        this.toastr.success('Succès', 'Question modifiée');
         console.log(rep);
       },
         (error: any) => {
           console.log(error)
+          this.toastr.error('Erreur', 'Ressource introuvable');
         });
     }
     this.dialogRef.close({ refresh: true });
