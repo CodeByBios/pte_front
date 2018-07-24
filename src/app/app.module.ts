@@ -34,7 +34,9 @@ import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.com
     MyOwnCustomModule,
     BrowserAnimationsModule,
     CommonModule,
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot({
+      timeOut: 20000 
+    }) 
   ],
   providers: [],
   entryComponents: [

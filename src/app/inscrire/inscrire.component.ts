@@ -4,6 +4,7 @@ import { CandidatService } from '../services/candidat.service'
 import { UtilisateurService } from '../services/utilisateur.service'
 import { Candidat } from '../models/candidat';
 import { Utilisateur } from '../models/utilisateur';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-inscrire',
@@ -23,6 +24,7 @@ export class InscrireComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
               private router: Router,
               private candidatService: CandidatService,
+              private toastr: ToastrService, 
               private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
@@ -63,9 +65,11 @@ export class InscrireComponent implements OnInit {
       this.candidatService.newCandidat(candidat).subscribe(rep => {
         console.log(rep);
         this.router.navigateByUrl("/test/"+this.idNiveau+"/"+this.idType+"/"+this.idLangage+"/"+rep.id);
+        this.toastr.success('Le candidat a été crée', 'Succès');
       },
       (error: any) => {
         console.log(error);
+        this.toastr.error('Ressource introuvable', 'Erreur');
       }); 
     },
     (error: any) => {

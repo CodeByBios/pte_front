@@ -305,11 +305,11 @@ export class DialogQuestionComponent implements OnInit {
       console.log(question);
       this.questionService.postQuestion(question).subscribe(rep => {
         console.log(rep);
-        this.toastr.success('Succès', 'Question crée');
+        this.toastr.success('Question crée', 'Succès');
       },
         (error: any) => {
           console.log(error)
-          this.toastr.error('Erreur', 'Ressource introuvable');
+          this.toastr.error('Ressource introuvable', 'Erreur');
         });
 
     } else {
@@ -321,12 +321,12 @@ export class DialogQuestionComponent implements OnInit {
       question.id = this.data.question.id;
       console.log(question);
       this.questionService.modifierQuestion(question).subscribe(rep => {
-        this.toastr.success('Succès', 'Question modifiée');
+        this.toastr.success('Question modifiée', 'Succès');
         console.log(rep);
       },
         (error: any) => {
           console.log(error)
-          this.toastr.error('Erreur', 'Ressource introuvable');
+          this.toastr.error('Ressource introuvable', 'Erreur');
         });
     }
     this.dialogRef.close({ refresh: true });
