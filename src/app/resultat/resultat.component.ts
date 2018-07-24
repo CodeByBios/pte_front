@@ -4,6 +4,7 @@ import { Candidat } from '../models/candidat';
 import { CandidatService } from '../services/candidat.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogSupprimerComponent } from '../dialogSupprimer/dialog-supprimer.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class ResultatComponent implements OnInit {
   displayedColumns: string[] = ['noms', 'prenoms', 'responsables de test', 'dates', 'notes', 'actions'];
   dataSource: MatTableDataSource<Candidat>;
 
-  constructor(private candidatService: CandidatService, public dialog: MatDialog) {}
+  constructor(private candidatService: CandidatService,
+              private toastr: ToastrService, 
+              public dialog: MatDialog) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -62,6 +65,7 @@ export class ResultatComponent implements OnInit {
     },
     (error: any) => { 
       console.log(error)
+      this.toastr.error('Ressource introuvable', 'Erreur');
     });
   }
 }

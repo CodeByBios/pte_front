@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { QuestionService } from '../services/question.service';
 import { CandidatService } from '../services/candidat.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { CandidatService } from '../services/candidat.service';
 export class DialogSupprimerComponent implements OnInit {
 
   constructor(private candidatService: CandidatService, 
-              private questionService: QuestionService, 
+              private questionService: QuestionService,
+              private toastr: ToastrService, 
               public dialogRef: MatDialogRef<DialogSupprimerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -31,9 +33,11 @@ export class DialogSupprimerComponent implements OnInit {
 
       this.questionService.supprimerQuestion(this.data.question.id).subscribe(rep => {
         console.log(rep);
+        this.toastr.success('Question la question a été supprimer', 'Succès');
       },
         (error: any) => {
           console.log(error)
+          this.toastr.error('Ressource introuvable', 'Erreur');
         });
       this.onNoClick();
       
@@ -41,9 +45,11 @@ export class DialogSupprimerComponent implements OnInit {
 
       this.candidatService.deleteCandidat(this.data.question.id).subscribe(rep => {
         console.log(rep);
+        this.toastr.success('Le candidat a été supprimer', 'Succès');
       },
         (error: any) => {
           console.log(error)
+          this.toastr.error('Ressource introuvable', 'Erreur');
         });
       this.onNoClick();
     }
