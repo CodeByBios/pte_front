@@ -8,17 +8,18 @@ import { ValiderComponent } from './valider/valider.component';
 import { VisualiserComponent } from './visualiser/visualiser.component';
 import { ResultatComponent } from './resultat/resultat.component';
 import { DialogQuestionComponent } from './dialogQuestion/question.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'lancerUnTest', component: MenuPteComponent },
-  { path: 'lancerUnTest/:id', component: MenuPteComponent },
+  { path: 'lancerUnTest', component: MenuPteComponent, canActivate: [AuthGuard] },
+  { path: 'lancerUnTest/:id', component: MenuPteComponent, canActivate: [AuthGuard] },
   { path: 'inscrire/:idN/:idT/:idL', component: InscrireComponent },
   { path: 'inscrire/:id', component: InscrireComponent },
   { path: 'test/:idN/:idT/:idL/:idC', component: TestComponent },
   { path: 'testValider', component: ValiderComponent },
-  { path: 'gestionQuestion', component: VisualiserComponent },
-  { path: 'resultats', component: ResultatComponent }
+  { path: 'gestionQuestion', component: VisualiserComponent, canActivate: [AuthGuard]},
+  { path: 'resultats', component: ResultatComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

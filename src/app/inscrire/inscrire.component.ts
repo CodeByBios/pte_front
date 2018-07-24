@@ -39,6 +39,8 @@ export class InscrireComponent implements OnInit {
     this.idNiveau = +this.route.snapshot.paramMap.get('idN');
     this.idType = +this.route.snapshot.paramMap.get('idT');
     this.idLangage = +this.route.snapshot.paramMap.get('idL');
+
+    this.utilisateurService.logout();
   }
 
   demarrer(){

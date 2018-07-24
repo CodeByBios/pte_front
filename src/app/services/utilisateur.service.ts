@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { API_ENDPOINT_UTILISATEUR } from '../../environments/environment';
 import { Utilisateur } from '../models/utilisateur';
 import { Connexion } from '../models/connexion';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -39,11 +40,28 @@ export class UtilisateurService {
     postUtilisateur(utilisateur: Utilisateur): Observable<any> {
         return this.http.post(`${API_ENDPOINT_UTILISATEUR}`, utilisateur);
     }
+
     /**
      * connexion
      * @param connexion
      */
     postConnexion(connexion: Connexion): Observable<any> {
-        return this.http.post(`${API_ENDPOINT_UTILISATEUR}/connexion`, connexion, {responseType: 'text'});
+        return this.http.post(`${API_ENDPOINT_UTILISATEUR}/connexion`, connexion, {responseType: 'text'})
+            .pipe(map(user => {
+            // login successful if there's a jwt token in the response // not implemented
+            if (user !== "refuse") {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            }
+            return user;
+        }));
+    }
+
+    /**
+     * deconnexion
+     */
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
     }
 }

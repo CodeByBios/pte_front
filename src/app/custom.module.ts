@@ -3,7 +3,7 @@ import { MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MatFormFieldModule, MatSelectModule, MatOptionModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
