@@ -6,6 +6,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptor } from './guards/jwt.interceptor';
 import { ErrorInterceptor } from './guards/error.interceptor';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { MenuPteComponent } from './menu-pte/menu-pte.component'
@@ -35,7 +37,11 @@ import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.com
   imports: [
     BrowserModule,
     MyOwnCustomModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CommonModule,
+    ToastrModule.forRoot({
+      timeOut: 3000
+    })
   ],
   providers: [
     AuthGuard,

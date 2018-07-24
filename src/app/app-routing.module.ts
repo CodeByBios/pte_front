@@ -13,7 +13,6 @@ import { AuthGuard } from './guards/auth.guard';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'lancerUnTest', component: MenuPteComponent, canActivate: [AuthGuard] },
-  { path: 'lancerUnTest/:id', component: MenuPteComponent, canActivate: [AuthGuard] },
   { path: 'inscrire/:idN/:idT/:idL', component: InscrireComponent },
   { path: 'inscrire/:id', component: InscrireComponent },
   { path: 'test/:idN/:idT/:idL/:idC', component: TestComponent },

@@ -46,12 +46,13 @@ export class UtilisateurService {
      * @param connexion
      */
     postConnexion(connexion: Connexion): Observable<any> {
-        return this.http.post(`${API_ENDPOINT_UTILISATEUR}/connexion`, connexion, {responseType: 'text'})
+        return this.http.post(`${API_ENDPOINT_UTILISATEUR}/connexion`, connexion)
             .pipe(map(user => {
             // login successful if there's a jwt token in the response // not implemented
-            if (user !== "refuse") {
+            if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
             }
             return user;
         }));

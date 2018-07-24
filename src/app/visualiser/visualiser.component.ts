@@ -29,11 +29,8 @@ export class VisualiserComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    let element1 = document.getElementById("entete");
-    let element2 = document.getElementById("user");
-
-    element2.textContent = "Brice BETTY"
-    element1.style.display = "initial";
+    let element = document.getElementById("entete");
+    element.style.display = "initial";
 
     this.chargerTableau(false);
     this.etat = 'nonValider';

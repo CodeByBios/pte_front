@@ -11,8 +11,5 @@ export class AppComponent {
   idUser: any;
   texteEntete = TEXTE_ENTETE;
 
-  ngOnInit() {
-    let element = document.getElementsByClassName("user");
-     this.idUser = element.item(0).id;
-  }
+  ngOnInit() {}
 }

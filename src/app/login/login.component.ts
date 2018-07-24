@@ -17,8 +17,6 @@ export class LoginComponent implements OnInit {
   login: string;
   password: string;
   connexion = new Connexion();
-  reponse: string;
-  currentUser: Utilisateur;
   texteEntete = TEXTE_ENTETE;
 
   ngOnInit() {
@@ -34,24 +32,19 @@ export class LoginComponent implements OnInit {
     this.connexion.password = this.password;
 
     this.utilisateurService.postConnexion(this.connexion).subscribe(rep => {
-      this.reponse = rep; 
-      console.log(this.reponse);
 
-      if(this.reponse === 'refuse'){
-        this.erreur = true;
-      }
-
-      if(this.reponse !== "refuse"){
+      if(rep){
         this.erreur = false;
         this.utilisateurService.getUtilisateur(this.connexion.login).subscribe(rep => {
-          this.currentUser = rep;
-          console.log(this.currentUser);
-          this.router.navigateByUrl("/lancerUnTest/"+this.currentUser.id);
+          console.log(rep);
+          this.router.navigateByUrl("/lancerUnTest");
         })
+      }else{
+        this.erreur = true;
       }
     },
     (error: any) => {
-      console.log(error)
+      console.log(error);
     })
   }
 }

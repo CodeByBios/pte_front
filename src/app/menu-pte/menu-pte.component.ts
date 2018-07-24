@@ -36,6 +36,7 @@ export class MenuPteComponent implements OnInit {
   langageSelected: number;
   typeQuestionSelected: number;
   dataSource: MatTableDataSource<any>;
+  currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('id') !== null) {
@@ -53,6 +54,7 @@ export class MenuPteComponent implements OnInit {
     let NavElement = document.getElementById("nav");
     let Userelement = document.getElementById("user");
 
+    Userelement.textContent = this.currentUser.nom+" "+this.currentUser.prenom;
     menuElement.style.display = "initial";
     NavElement.style.display = "initial";
 
