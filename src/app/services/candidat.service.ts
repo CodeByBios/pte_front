@@ -40,7 +40,7 @@ export class CandidatService {
     /**
      * create one test
      */
-    createTest(idN: number, idL: number, idT: number, idC: number): Observable<any> {
+    createTest(idN: number, idL: number[], idT: number, idC: number): Observable<any> {
         return this.http.post(`${API_ENDPOINT_TEST}/${idN}/${idL}/${idT}/${idC}`, {responseType: 'json'});
     }
     

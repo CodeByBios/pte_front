@@ -17,6 +17,19 @@
             float: right;
             display: flex;
 
+            .deconn{
+                height: 10px;
+                margin-top: 41px;
+                margin-right: 14px;
+                color: rgb(72, 72, 110);
+                text-decoration: underline;
+                cursor: pointer;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .deconn:hover{
+                color: rgb(67, 67, 206);
+            }
+
             .iuser{
                 width: 40px;
                 height: 40px;

@@ -33,10 +33,9 @@ export class VisualiserComponent implements OnInit {
 
   ngOnInit() {
     let element = document.getElementById("entete");
-    let userElement = document.getElementById("user");
     element.style.display = "initial";
-    userElement.textContent = this.currentUser.utilisateur.nom+" "+this.currentUser.utilisateur.prenom;
 
+    this.checkUser();
     this.chargerTableau(false);
     this.etat = 'nonValider';
   }
@@ -104,5 +103,19 @@ export class VisualiserComponent implements OnInit {
         console.log(error);
         this.toastr.error('Ressource introuvable', 'Erreur');
       })
+  }
+
+  checkUser(){
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let element = document.getElementById("deconn");
+    let userElement = document.getElementById("user");
+
+    if(currentUser){
+       element.style.display = "initial";
+       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
+    }else{
+      element.style.display = "none";
+       userElement.textContent = "";
+    }
   }
 }

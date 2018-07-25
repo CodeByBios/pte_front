@@ -29,9 +29,8 @@ export class ResultatComponent implements OnInit {
   ngOnInit() {
     let element = document.getElementById("entete");
     element.style.display = "initial";
-    let userElement = document.getElementById("user");
-    userElement.textContent = this.currentUser.utilisateur.nom+" "+this.currentUser.utilisateur.prenom;
-
+    
+    this.checkUser()
     this.chargerTableau();
   }
 
@@ -70,5 +69,19 @@ export class ResultatComponent implements OnInit {
       console.log(error)
       this.toastr.error('Ressource introuvable', 'Erreur');
     });
+  }
+
+  checkUser(){
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let element = document.getElementById("deconn");
+    let userElement = document.getElementById("user");
+
+    if(currentUser){
+       element.style.display = "initial";
+       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
+    }else{
+      element.style.display = "none";
+       userElement.textContent = "";
+    }
   }
 }

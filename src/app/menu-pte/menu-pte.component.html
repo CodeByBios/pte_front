@@ -17,7 +17,7 @@
   <p *ngIf="langageAffiche"> Vous souhaitez demarrer un test technique, choississez les technologies qui seront liés à ce test.</p>
 
   <div *ngIf="langageAffiche">
-    <mat-checkbox color="primary" *ngFor="let langage of langages">{{langage.libelle}}</mat-checkbox>
+    <mat-checkbox color="primary" (click)="selectLangage(langage.id)" *ngFor="let langage of langages">{{langage.libelle}}</mat-checkbox>
   </div>
   <br><br>
 

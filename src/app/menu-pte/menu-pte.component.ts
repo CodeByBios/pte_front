@@ -37,7 +37,7 @@ export class MenuPteComponent implements OnInit {
   typeQuestions: TypeQuestion[];
   langageAffiche: boolean;
   niveauSelected: number;
-  langageSelected: number;
+  langageSelected: number[] = [];
   typeQuestionSelected: number;
   dataSource: MatTableDataSource<any>;
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -48,13 +48,11 @@ export class MenuPteComponent implements OnInit {
       IdUserElement.item(0).id = this.route.snapshot.paramMap.get('id');
     }
 
+    this.checkUser();
     this.chargerTableau();
     
     let menuElement = document.getElementById("entete");
     let NavElement = document.getElementById("nav");
-    let userElement = document.getElementById("user");
-
-    userElement.textContent = this.currentUser.utilisateur.nom+" "+this.currentUser.utilisateur.prenom;
     menuElement.style.display = "initial";
     NavElement.style.display = "initial";
 
@@ -86,10 +84,9 @@ export class MenuPteComponent implements OnInit {
 
   onItemChange(typeQuestion: any) {
     if (typeQuestion.libelle === "Technique") {
-      this.langageSelected = 1;
-      this.langageAffiche = true;
+      this.langageAffiche = true; 
     } else {
-      this.langageSelected = 7;
+      this.langageSelected = [7];
       this.langageAffiche = false;
     }
 
@@ -98,6 +95,10 @@ export class MenuPteComponent implements OnInit {
         this.langages.splice(i, 1);
       }
     }
+  }
+
+  selectLangage(id: number){
+    this.langageSelected.push(id);
   }
 
   chargerTableau(){
@@ -112,5 +113,19 @@ export class MenuPteComponent implements OnInit {
       console.log(error)
       this.toastr.error('Ressource introuvable', 'Erreur');
     });
+  }
+
+  checkUser(){
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let element = document.getElementById("deconn");
+    let userElement = document.getElementById("user");
+
+    if(currentUser){
+       element.style.display = "initial";
+       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
+    }else{
+      element.style.display = "none";
+       userElement.textContent = "";
+    }
   }
 }

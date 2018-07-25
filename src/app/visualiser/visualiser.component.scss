@@ -4,6 +4,7 @@
     mat-radio-group{
         display: inline-flex;
         flex-direction: column;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
         .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
             border-color: blue;

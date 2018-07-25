@@ -17,7 +17,7 @@ export class TestComponent implements OnInit {
   idNiveau: number;
   compteurQuestion: number;
   idType: number;
-  idLangage: number;
+  langages: number[] = [];
   idCandidat: number;
   questions: any;
   bulle: boolean;
@@ -35,13 +35,20 @@ export class TestComponent implements OnInit {
     element.style.display = "none";
     element1.style.display = "initial";
 
+    this.checkUser();
+
     this.idNiveau = +this.route.snapshot.paramMap.get('idN');
     this.idType = +this.route.snapshot.paramMap.get('idT');
-    this.idLangage = +this.route.snapshot.paramMap.get('idL');
     this.idCandidat = +this.route.snapshot.paramMap.get('idC');
+    let langagesString = this.route.snapshot.paramMap.get('idL');
     let compteurQuestion = 0;
+    let arrayOfStrings = langagesString.split(",");
 
-    this.candidatService.createTest(this.idNiveau, this.idLangage, this.idType, this.idCandidat).subscribe(rep => {
+    for (let x = 0; x < arrayOfStrings.length; ++x) {
+      this.langages.push(+arrayOfStrings[x]);
+    }
+
+    this.candidatService.createTest(this.idNiveau, this.langages, this.idType, this.idCandidat).subscribe(rep => {
 
       for (let i = 0; i < rep.length; ++i) {
         rep[i].numero = compteurQuestion + 1;
@@ -176,6 +183,20 @@ export class TestComponent implements OnInit {
 
     if(cpt === n){
       this.note++;
+    }
+  }
+
+  checkUser(){
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let element = document.getElementById("deconn");
+    let userElement = document.getElementById("user");
+
+    if(currentUser){
+       element.style.display = "initial";
+       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
+    }else{
+      element.style.display = "none";
+       userElement.textContent = "";
     }
   }
 }

@@ -15,7 +15,7 @@ export class InscrireComponent implements OnInit {
 
   idNiveau: number;
   idType: number;
-  idLangage: number;
+  langages: string;
   nom: string;
   prenom: string;
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -36,21 +36,22 @@ export class InscrireComponent implements OnInit {
 
     this.idNiveau = +this.route.snapshot.paramMap.get('idN');
     this.idType = +this.route.snapshot.paramMap.get('idT');
-    this.idLangage = +this.route.snapshot.paramMap.get('idL');
+    this.langages = this.route.snapshot.paramMap.get('idL');
 
     this.utilisateurService.logout();
+    this.checkUser();
   }
 
   demarrer() {
     let candidat = new Candidat();
     let currentUser = new Utilisateur;
 
-    currentUser.id = this.currentUser.id;
-    currentUser.login = this.currentUser.login;
-    currentUser.nom = this.currentUser.nom;
-    currentUser.password = this.currentUser.password;
-    currentUser.prenom = this.currentUser.prenom;
-    currentUser.roleDto = this.currentUser.role;
+    currentUser.id = this.currentUser.utilisateur.id;
+    currentUser.login = this.currentUser.utilisateur.login;
+    currentUser.nom = this.currentUser.utilisateur.nom;
+    currentUser.password = this.currentUser.utilisateur.password;
+    currentUser.prenom = this.currentUser.utilisateur.prenom;
+    currentUser.roleDto = this.currentUser.utilisateur.role;
 
     candidat.utilisateurDto = currentUser;
     candidat.nom = this.nom;
@@ -61,13 +62,27 @@ export class InscrireComponent implements OnInit {
 
     this.candidatService.newCandidat(candidat).subscribe(rep => {
       console.log(rep);
-      this.router.navigateByUrl("/test/" + this.idNiveau + "/" + this.idType + "/" + this.idLangage + "/" + rep.id);
+      this.router.navigateByUrl("/test/" + this.idNiveau + "/" + this.idType + "/" + this.langages + "/" + rep.id);
       this.toastr.success('Le candidat a été crée', 'Succès');
     },
       (error: any) => {
         console.log(error);
         this.toastr.error('Ressource introuvable', 'Erreur');
       });
+  }
+
+  checkUser(){
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let element = document.getElementById("deconn");
+    let userElement = document.getElementById("user");
+
+    if(currentUser){
+       element.style.display = "initial";
+       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
+    }else{
+      element.style.display = "none";
+       userElement.textContent = "";
+    }
   }
 
 }
