@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT_UTILISATEUR } from '../../environments/environment';
+import { API_ENDPOINT_CONNEXION } from '../../environments/environment';
 import { Utilisateur } from '../models/utilisateur';
 import { Connexion } from '../models/connexion';
 import { map } from 'rxjs/operators';
@@ -10,6 +11,7 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class UtilisateurService {
+
     /**
      * constructor
      * @param  {HttpClient} privatehttp Local HttpClient reference
@@ -46,16 +48,7 @@ export class UtilisateurService {
      * @param connexion
      */
     postConnexion(connexion: Connexion): Observable<any> {
-        return this.http.post(`${API_ENDPOINT_UTILISATEUR}/connexion`, connexion)
-            .pipe(map(user => {
-            // login successful if there's a jwt token in the response // not implemented
-            if (user) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                sessionStorage.setItem('currentUser', JSON.stringify(user));
-            }
-            return user;
-        }));
+        return this.http.post(`${API_ENDPOINT_CONNEXION}`, connexion);
     }
 
     /**

@@ -3,10 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NiveauService } from '../services/niveau.service';
 import { LangageService } from '../services/langage.service';
 import { TypeQuestionService } from '../services/type-question.service';
+import { QuestionService } from '../services/question.service';
 import { Niveau } from '../models/niveau';
 import { Langage } from '../models/langage';
 import { TypeQuestion } from '../models/typeQuestion';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-menu-pte',
@@ -23,6 +25,8 @@ export class MenuPteComponent implements OnInit {
   constructor(private niveauService: NiveauService,
     private langageService: LangageService,
     private typeQuestionService: TypeQuestionService,
+    private questionService: QuestionService,
+    private toastr: ToastrService, 
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -42,19 +46,15 @@ export class MenuPteComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id') !== null) {
       let IdUserElement = document.getElementsByClassName("user");
       IdUserElement.item(0).id = this.route.snapshot.paramMap.get('id');
-      let niveaux = ["hhh","hhhh"]; 
-
-      this.dataSource = new MatTableDataSource(niveaux);
-      this.paginator._intl.itemsPerPageLabel = "Nombre par page :"
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     }
 
+    this.chargerTableau();
+    
     let menuElement = document.getElementById("entete");
     let NavElement = document.getElementById("nav");
-    let Userelement = document.getElementById("user");
+    let userElement = document.getElementById("user");
 
-    Userelement.textContent = this.currentUser.nom+" "+this.currentUser.prenom;
+    userElement.textContent = this.currentUser.utilisateur.nom+" "+this.currentUser.utilisateur.prenom;
     menuElement.style.display = "initial";
     NavElement.style.display = "initial";
 
@@ -98,5 +98,19 @@ export class MenuPteComponent implements OnInit {
         this.langages.splice(i, 1);
       }
     }
+  }
+
+  chargerTableau(){
+    this.questionService.getQuestionsByNiveau().subscribe(rep => {
+      this.dataSource = new MatTableDataSource(rep);
+
+      this.paginator._intl.itemsPerPageLabel = "Nombre par page :"
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    },
+    (error: any) => { 
+      console.log(error)
+      this.toastr.error('Ressource introuvable', 'Erreur');
+    });
   }
 }

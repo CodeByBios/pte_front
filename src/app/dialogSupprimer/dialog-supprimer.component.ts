@@ -33,7 +33,7 @@ export class DialogSupprimerComponent implements OnInit {
 
       this.questionService.supprimerQuestion(this.data.question.id).subscribe(rep => {
         console.log(rep);
-        this.toastr.success('Question la question a été supprimer', 'Succès');
+        this.toastr.success('Question la question a été supprimé', 'Succès');
       },
         (error: any) => {
           console.log(error)
@@ -45,7 +45,7 @@ export class DialogSupprimerComponent implements OnInit {
 
       this.candidatService.deleteCandidat(this.data.question.id).subscribe(rep => {
         console.log(rep);
-        this.toastr.success('Le candidat a été supprimer', 'Succès');
+        this.toastr.success('Le candidat a été supprimé', 'Succès');
       },
         (error: any) => {
           console.log(error)

@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogQuestionComponent } from '../dialogQuestion/question.component';
 import { DialogSupprimerComponent } from '../dialogSupprimer/dialog-supprimer.component';
 import { QuestionService } from '../services/question.service';
+import { ToastrService } from 'ngx-toastr';
 import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 
 @Component({
@@ -20,8 +21,10 @@ export class VisualiserComponent implements OnInit {
   displayedColumns: string[] = ['libelles', 'etats', 'types de question', 'langages', 'niveaux', 'actions'];
   questions: Question[] = [];
   dataSource: MatTableDataSource<Question>;
+  currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   constructor(public dialog: MatDialog,
+    private toastr: ToastrService, 
     private questionService: QuestionService,
     private http: HttpClient) { }
 
@@ -30,7 +33,9 @@ export class VisualiserComponent implements OnInit {
 
   ngOnInit() {
     let element = document.getElementById("entete");
+    let userElement = document.getElementById("user");
     element.style.display = "initial";
+    userElement.textContent = this.currentUser.utilisateur.nom+" "+this.currentUser.utilisateur.prenom;
 
     this.chargerTableau(false);
     this.etat = 'nonValider';
@@ -96,7 +101,8 @@ export class VisualiserComponent implements OnInit {
       this.dataSource.sort = this.sort;
     },
       (error: any) => {
-        console.log(error)
+        console.log(error);
+        this.toastr.error('Ressource introuvable', 'Erreur');
       })
   }
 }

@@ -32,13 +32,11 @@ export class LoginComponent implements OnInit {
     this.connexion.password = this.password;
 
     this.utilisateurService.postConnexion(this.connexion).subscribe(rep => {
-
-      if(rep){
+      if(rep.jeton !== null){
         this.erreur = false;
-        this.utilisateurService.getUtilisateur(this.connexion.login).subscribe(rep => {
-          console.log(rep);
-          this.router.navigateByUrl("/lancerUnTest");
-        })
+        localStorage.setItem('currentUser', JSON.stringify(rep));
+        sessionStorage.setItem('currentUser', JSON.stringify(rep));
+        this.router.navigateByUrl("/lancerUnTest");
       }else{
         this.erreur = true;
       }

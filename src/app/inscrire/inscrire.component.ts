@@ -25,16 +25,14 @@ export class InscrireComponent implements OnInit {
     private router: Router,
     private candidatService: CandidatService,
     private toastr: ToastrService,
-    private utilisateurService: UtilisateurService) { }
+    private utilisateurService: UtilisateurService) { } 
 
   ngOnInit() {
     let element = document.getElementById("nav");
     let element1 = document.getElementById("entete");
-    let element2 = document.getElementById("user");
 
     element.style.display = "none";
-    element2.textContent = "Brice BETTY"
-    element1.style.display = "initial"; 
+    element1.style.display = "initial";
 
     this.idNiveau = +this.route.snapshot.paramMap.get('idN');
     this.idType = +this.route.snapshot.paramMap.get('idT');

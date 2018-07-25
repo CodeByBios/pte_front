@@ -17,6 +17,7 @@ export class ResultatComponent implements OnInit {
   candidats: Candidat[] = [];
   displayedColumns: string[] = ['noms', 'prenoms', 'responsables de test', 'dates', 'notes', 'actions'];
   dataSource: MatTableDataSource<Candidat>;
+  currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   constructor(private candidatService: CandidatService,
               private toastr: ToastrService, 
@@ -28,6 +29,8 @@ export class ResultatComponent implements OnInit {
   ngOnInit() {
     let element = document.getElementById("entete");
     element.style.display = "initial";
+    let userElement = document.getElementById("user");
+    userElement.textContent = this.currentUser.utilisateur.nom+" "+this.currentUser.utilisateur.prenom;
 
     this.chargerTableau();
   }
