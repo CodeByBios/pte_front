@@ -40,7 +40,7 @@ import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.com
     BrowserAnimationsModule,
     CommonModule,
     ToastrModule.forRoot({
-      timeOut: 2000
+      timeOut: 3000
     })
   ],
   providers: [

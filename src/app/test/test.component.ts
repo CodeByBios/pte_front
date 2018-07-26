@@ -4,7 +4,8 @@ import { HostListener } from "@angular/core";
 import { CandidatService } from '../services/candidat.service'
 import { Candidat } from '../models/candidat';
 import { Question } from '../models/question';
-import { QuestionRepJuste } from '../models/questionRepJuste'
+import { QuestionRepJuste } from '../models/questionRepJuste';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-test',
@@ -13,6 +14,7 @@ import { QuestionRepJuste } from '../models/questionRepJuste'
 })
 export class TestComponent implements OnInit {
 
+  candidatConnected: any;
   note: number = 0;
   idNiveau: number;
   compteurQuestion: number;
@@ -26,7 +28,8 @@ export class TestComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private candidatService: CandidatService) { }
+    private candidatService: CandidatService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     let element = document.getElementById("nav");
@@ -34,8 +37,6 @@ export class TestComponent implements OnInit {
 
     element.style.display = "none";
     element1.style.display = "initial";
-
-    this.checkUser();
 
     this.idNiveau = +this.route.snapshot.paramMap.get('idN');
     this.idType = +this.route.snapshot.paramMap.get('idT');
@@ -71,12 +72,15 @@ export class TestComponent implements OnInit {
 
         this.questionsReponseJuste.push(question);
       }
-  
+
       console.log(this.questionsReponseJuste);
     },
       (error: any) => {
-        console.log(error)
+        this.toastr.info('Le nombre de questions est insuffisant', 'Info');
+        console.log(error);
       });
+
+      this.checkUser();
   }
 
   valider() {
@@ -84,25 +88,19 @@ export class TestComponent implements OnInit {
 
     console.log(this.questionsReponseCandidat);
 
-    for (let i = 0; i < this.questionsReponseCandidat.length; ++i){
-      for (let j = 0; j < this.questionsReponseJuste.length; ++j){
-        if(this.questionsReponseCandidat[i].numero === this.questionsReponseJuste[j].numero){
-          if(this.questionsReponseCandidat[i].reponses.length === this.questionsReponseJuste[j].reponses.length){
+    for (let i = 0; i < this.questionsReponseCandidat.length; ++i) {
+      for (let j = 0; j < this.questionsReponseJuste.length; ++j) {
+        if (this.questionsReponseCandidat[i].numero === this.questionsReponseJuste[j].numero) {
+          if (this.questionsReponseCandidat[i].reponses.length === this.questionsReponseJuste[j].reponses.length) {
             this.compare(this.questionsReponseCandidat[i], this.questionsReponseJuste[j]);
           }
         }
       }
     }
 
-    this.candidatService.getCandidat(this.idCandidat).subscribe(rep => {
-        rep.note = this.note;
-        console.log(rep);
-        
-        this.candidatService.modifierCandidat(rep).subscribe(rep => { console.log(rep); },
-          (error: any) => {
-            console.log(error)
-          });
-    },
+    this.candidatConnected.note = this.note;
+
+    this.candidatService.modifierCandidat(this.candidatConnected).subscribe(rep => { console.log(rep); },
       (error: any) => {
         console.log(error)
       });
@@ -149,54 +147,61 @@ export class TestComponent implements OnInit {
                 this.questionsReponseCandidat[i].reponses.splice(j, 1);
               }
             }
-          }else{
+          } else {
             this.questionsReponseCandidat[i].reponses.push(pReponse);
           }
           break;
-        } 
+        }
       }
 
-      if(cpt === 0){
+      if (cpt === 0) {
         let question = new QuestionRepJuste();
         question.numero = pQuestion.numero;
         question.libelle = pQuestion.libelle;
         question.reponses = [];
         question.reponses.push(pReponse);
-  
+
         this.questionsReponseCandidat.push(question);
       }
     }
   }
 
 
-  compare(pCandidat: QuestionRepJuste, pReponseJuste: QuestionRepJuste){
+  compare(pCandidat: QuestionRepJuste, pReponseJuste: QuestionRepJuste) {
     let n = pCandidat.reponses.length;
     let cpt = 0;
-    
+
     for (let i = 0; i < n; ++i) {
       for (let j = 0; j < n; ++j) {
-        if(pCandidat.reponses[i].libelle === pReponseJuste.reponses[j].libelle){
-           cpt++;
+        if (pCandidat.reponses[i].libelle === pReponseJuste.reponses[j].libelle) {
+          cpt++;
         }
       }
     }
 
-    if(cpt === n){
+    if (cpt === n) {
       this.note++;
     }
   }
 
-  checkUser(){
+  checkUser() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let element = document.getElementById("deconn");
     let userElement = document.getElementById("user");
 
-    if(currentUser){
-       element.style.display = "initial";
-       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
-    }else{
-      element.style.display = "none";
-       userElement.textContent = "";
-    }
+    this.candidatService.getCandidat(this.idCandidat).subscribe(rep => {
+      this.candidatConnected = rep;
+
+      if (currentUser) {
+        element.style.display = "initial";
+        userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+      } else {
+        element.style.display = "none";
+        userElement.textContent = this.candidatConnected.nom + " " + this.candidatConnected.prenom;
+      }
+    },
+      (error: any) => {
+        console.log(error)
+      });
   }
 }
