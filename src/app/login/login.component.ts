@@ -4,6 +4,7 @@ import { UtilisateurService } from '../services/utilisateur.service';
 import { Utilisateur } from '../models/utilisateur';
 import { Router } from '@angular/router';
 import { TEXTE_ENTETE } from '../fr-FR'
+import { Button } from 'protractor';
 
 
 @Component({

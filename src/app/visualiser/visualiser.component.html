@@ -21,7 +21,7 @@
 
       <ng-container matColumnDef="etats">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ETATS </th>
-        <td mat-cell *matCellDef="let row"> {{row.etat}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.etat ? 'Validée' : 'Non validée'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="types de question">
@@ -44,7 +44,7 @@
           <td mat-cell *matCellDef="let row"> 
             <div class="buttons">
                 <div class="button" (click)="modifier(row)">Modifier</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="button" (click)="supprimer(row)">Supprimer</div>
+                <div class="button"  *ngIf="role" (click)="supprimer(row)">Supprimer</div> 
             </div>
           </td>
       </ng-container>
@@ -54,7 +54,7 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
 
   <br><br>

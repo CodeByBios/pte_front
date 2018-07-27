@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ResultatComponent implements OnInit {
+
+  role: boolean;
   candidats: Candidat[] = [];
   displayedColumns: string[] = ['noms', 'prenoms', 'responsables de test', 'dates', 'notes', 'actions'];
   dataSource: MatTableDataSource<Candidat>;
@@ -32,6 +34,12 @@ export class ResultatComponent implements OnInit {
     
     this.checkUser()
     this.chargerTableau();
+
+    if(this.currentUser.utilisateur.role.identite !== "manager"){
+      this.role = false;
+    }else{
+      this.role = true;
+    }
   }
 
   applyFilter(filterValue: string) {

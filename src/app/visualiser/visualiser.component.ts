@@ -17,6 +17,7 @@ import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 
 export class VisualiserComponent implements OnInit {
 
+  role: boolean;
   etat: string;
   displayedColumns: string[] = ['libelles', 'etats', 'types de question', 'langages', 'niveaux', 'actions'];
   questions: Question[] = [];
@@ -38,6 +39,12 @@ export class VisualiserComponent implements OnInit {
     this.checkUser();
     this.chargerTableau(false);
     this.etat = 'nonValider';
+
+    if(this.currentUser.utilisateur.role.identite !== "manager"){
+      this.role = false;
+    }else{
+      this.role = true;
+    }
   }
 
   applyFilter(filterValue: string) {

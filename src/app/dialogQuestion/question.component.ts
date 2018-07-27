@@ -33,6 +33,7 @@ export class DialogQuestionComponent implements OnInit {
   pro2Check: boolean;
   pro3Check: boolean;
   pro4Check: boolean;
+  role: boolean;
   typeStatus: string;
   langageStatus: string;
 
@@ -51,6 +52,7 @@ export class DialogQuestionComponent implements OnInit {
   reponse3 = new Reponse();
   proposition4: string;
   reponse4 = new Reponse();
+  currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   constructor(private niveauService: NiveauService,
     private langageService: LangageService,
@@ -61,6 +63,12 @@ export class DialogQuestionComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+
+    if(this.currentUser.utilisateur.role.identite !== "manager"){
+      this.role = false;
+    }else{
+      this.role = true;
+    }
 
     this.reponse1.reponseJuste = false;
     this.reponse2.reponseJuste = false;
@@ -140,6 +148,9 @@ export class DialogQuestionComponent implements OnInit {
           this.reponse4.reponseJuste = false;
         }
       } else if (reponses.length === 3) {
+
+        this.buttonAjouter = true;
+
         this.proposition1 = reponses[i].libelle;
         this.reponse1.id = reponses[i].id;
         this.reponse1.libelle = reponses[i].libelle;
@@ -174,6 +185,9 @@ export class DialogQuestionComponent implements OnInit {
           this.reponse3.reponseJuste = false;
         }
       } else {
+
+        this.buttonAjouter = true;
+        
         this.proposition1 = reponses[i].libelle;
         this.reponse1.id = reponses[i].id;
         this.reponse1.libelle = reponses[i].libelle;

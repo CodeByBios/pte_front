@@ -19,50 +19,50 @@
   <div *ngIf="langageAffiche">
     <mat-checkbox color="primary" (click)="selectLangage(langage.id)" *ngFor="let langage of langages">{{langage.libelle}}</mat-checkbox>
   </div>
-  <br><br>
+  <br>
 
   <div>
     <button mat-raised-button color="primary" (click)="suivant()">Suivant</button>
   </div>
 
-  <br><br>
+  <br>
   <h2> Tableau de bord des questions</h2>
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="niveaux">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> NIVEAUX </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Niveaux </th>
         <td mat-cell *matCellDef="let row"> {{row.libelleNiveau}} </td>
       </ng-container>
 
       <ng-container matColumnDef="questionV">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> QUESTIONS VALIDEES </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Questions validées </th>
         <td mat-cell *matCellDef="let row"> {{row.resumeQuestionDto.nbQuestionValidee}} </td>
       </ng-container>
 
       <ng-container matColumnDef="questionN">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> QUESTIONS NON VALIDEES </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Questions non validées </th>
         <td mat-cell *matCellDef="let row"> {{row.resumeQuestionDto.nbQuestionNonValidee}} </td>
       </ng-container>
 
       <ng-container matColumnDef="questionT">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> QUESTIONS DISPONIBLE POUR UN TEST TECHNIQUE </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Questions disponibles pour un test technique </th>
         <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.resumeQuestionDto.nbQuestionTechinque}} </td>
       </ng-container>
 
       <ng-container matColumnDef="questionL">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> QUESTIONS DISPONIBLE POUR UN TEST LOGIQUE </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Questions disponibles pour un test logique </th>
         <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.resumeQuestionDto.nbQuestionLogique}} </td>
       </ng-container>
 
       <ng-container matColumnDef="questionA">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> QUESTIONS DISPONIBLE POUR UN TEST ANGLAIS </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Questions disponibles pour un test anglais </th>
         <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.resumeQuestionDto.nbQuestionAnglais}} </td>
       </ng-container>
 
       <ng-container matColumnDef="questionF">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> QUESTIONS DISPONIBLE POUR UN TEST FRANCAIS </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Questions disponibles pour un test français </th>
         <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.resumeQuestionDto.nbQuestionFancais}} </td>
       </ng-container>
 
@@ -72,3 +72,9 @@
 
     <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
   </div>
+
+</div>
+
+<footer>
+    @sodifrance 2018
+</footer>

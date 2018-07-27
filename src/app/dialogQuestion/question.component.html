@@ -2,7 +2,7 @@
   <h2 mat-dialog-title></h2>
   <mat-dialog-content>
     <mat-form-field>
-      <textarea [disabled]="desactiverQuestion" matInput [(ngModel)]="libelle" placeholder="Libelle" required></textarea>
+      <textarea style="text-transform: capitalize;" [disabled]="desactiverQuestion" matInput [(ngModel)]="libelle" placeholder="Libelle" required></textarea>
     </mat-form-field>
 
     <mat-form-field>
@@ -29,26 +29,26 @@
     </div>
 
     <mat-radio-group [(ngModel)]="etat" *ngIf="modifEtat">
-      <mat-radio-button color="primary" value="valider" disable> Validée </mat-radio-button>
-      <mat-radio-button color="primary" value="nonValider"> En cours de validation </mat-radio-button>
+      <mat-radio-button *ngIf="role" color="primary" value="valider"> Validée </mat-radio-button>
+      <mat-radio-button *ngIf="role" color="primary" value="nonValider"> En cours de validation </mat-radio-button>
       <br>
     </mat-radio-group>
 
     <mat-form-field>
-      <input matInput [disabled]="desactiverQuestion" [(ngModel)]="proposition1" placeholder="Proposition 1" required>
+      <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition1" placeholder="Proposition 1" required>
     </mat-form-field>
     <mat-checkbox color="primary" [checked]="pro1Check" [disabled]="desactiverQuestion" (click)="repJuste1()">Bonne proposition ?</mat-checkbox>
     <br>
 
     <mat-form-field>
-      <input matInput [disabled]="desactiverQuestion" [(ngModel)]="proposition2" placeholder="Proposition 2" required>
+      <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition2" placeholder="Proposition 2" required>
     </mat-form-field>
     <mat-checkbox color="primary" [checked]="pro2Check" [disabled]="desactiverQuestion" (click)="repJuste2()">Bonne proposition ?</mat-checkbox>
     <br>
 
     <div *ngIf="propo3">
       <mat-form-field>
-        <input matInput [disabled]="desactiverQuestion" [(ngModel)]="proposition3" placeholder="Proposition 3">
+        <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition3" placeholder="Proposition 3">
       </mat-form-field>
       <mat-checkbox color="primary" [checked]="pro3Check" [disabled]="desactiverQuestion" (click)="repJuste3()">Bonne proposition ?</mat-checkbox>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
@@ -58,7 +58,7 @@
 
     <div *ngIf="propo4">
       <mat-form-field>
-        <input matInput [disabled]="desactiverQuestion" [(ngModel)]="proposition4" placeholder="Proposition 4">
+        <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition4" placeholder="Proposition 4">
       </mat-form-field>
       <mat-checkbox color="primary" [checked]="pro4Check" [disabled]="desactiverQuestion" (click)="repJuste4()">Bonne proposition ?</mat-checkbox>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;

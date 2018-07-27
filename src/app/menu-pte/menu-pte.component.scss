@@ -3,6 +3,7 @@
         padding: 40px;
         display: grid;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding-top: 200px; 
 
         p{
             font-size: 18px;
@@ -22,4 +23,14 @@
         h2{
             font-weight: normal;
         }
+        table{
+            text-align: center;
+        }
+}
+
+footer{
+    height: 30px,;
+    line-height: 30px;
+    text-align: center;
+    background-color:  rgb(128, 123, 123);
 }

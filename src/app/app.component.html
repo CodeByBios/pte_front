@@ -1,31 +1,31 @@
 <div class="head" id="entete">
-        <div class="photo">
-          <img src="../../assets/sodifrance.png" alt="sodifrance">
-      
-          <div class="user">
-            <div id="deconn" class="deconn" (click)="deconnexion()"> Déconnexion </div>
-            <p style="margin-top: 45px; margin-right: -10px; letter-spacing: 0.5px;" id="user"> </p>
-            <img class="iuser" src="../../assets/user.png" alt="sodifrance" style="margin-top: 10px;">
-          </div>
-        </div>
-      
-        <div class="titre">
-          <h2>{{texteEntete}}</h2>
-        </div>
-      
-        <div class="nav" id="nav">
-          <ul>
-            <li>
-              <a routerLink="/lancerUnTest" routerLinkActive="active">Lancer un test</a>
-            </li>
-            <li>
-              <a routerLink="/gestionQuestion" routerLinkActive="active">Gestion des questions</a>
-            </li>
-            <li>
-              <a routerLink="/resultats" routerLinkActive="active">Resultats des candidats</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+  <div class="photo">
+    <img src="../../assets/sodifrance.png" alt="sodifrance">
+
+    <div class="user">
+      <div id="deconn" class="deconn" (click)="deconnexion()"> Déconnexion </div>
+      <p style="margin-top: 34px; margin-right: -10px; letter-spacing: 0.5px;" id="user"> </p>
+      <img class="iuser" src="../../assets/user.png" alt="sodifrance" style="margin-top: 2px;">
+    </div>
+  </div>
+
+  <div class="titre">
+    <h2>{{texteEntete}}</h2>
+  </div>
+
+  <div class="nav" id="nav">
+    <ul>
+      <li>
+        <a routerLink="/lancerUnTest" routerLinkActive="active">Lancer un test</a>
+      </li>
+      <li>
+        <a routerLink="/gestionQuestion" routerLinkActive="active">Gestion des questions</a>
+      </li>
+      <li>
+        <a routerLink="/resultats" routerLinkActive="active">Resultats des candidats</a>
+      </li>
+    </ul>
+  </div>
+</div>
 
 <router-outlet></router-outlet>
