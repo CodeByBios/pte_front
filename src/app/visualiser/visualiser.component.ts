@@ -7,7 +7,6 @@ import { DialogQuestionComponent } from '../dialogQuestion/question.component';
 import { DialogSupprimerComponent } from '../dialogSupprimer/dialog-supprimer.component';
 import { QuestionService } from '../services/question.service';
 import { ToastrService } from 'ngx-toastr';
-import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 
 @Component({
   selector: 'app-visualiser',
@@ -25,7 +24,7 @@ export class VisualiserComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   constructor(public dialog: MatDialog,
-    private toastr: ToastrService, 
+    private toastr: ToastrService,
     private questionService: QuestionService,
     private http: HttpClient) { }
 
@@ -40,9 +39,9 @@ export class VisualiserComponent implements OnInit {
     this.chargerTableau(false);
     this.etat = 'nonValider';
 
-    if(this.currentUser.utilisateur.role.identite !== "manager"){
+    if (this.currentUser.utilisateur.role.identite !== "manager") {
       this.role = false;
-    }else{
+    } else {
       this.role = true;
     }
   }
@@ -71,7 +70,7 @@ export class VisualiserComponent implements OnInit {
 
   supprimer(row: any) {
     const dialogRef = this.dialog.open(DialogSupprimerComponent, {
-      data: { question: row, sujet: "question"}
+      data: { question: row, sujet: "question" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -112,17 +111,17 @@ export class VisualiserComponent implements OnInit {
       })
   }
 
-  checkUser(){
+  checkUser() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let element = document.getElementById("deconn");
     let userElement = document.getElementById("user");
 
-    if(currentUser){
-       element.style.display = "initial";
-       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
-    }else{
+    if (currentUser) {
+      element.style.display = "initial";
+      userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+    } else {
       element.style.display = "none";
-       userElement.textContent = "";
+      userElement.textContent = "";
     }
   }
 }

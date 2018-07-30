@@ -28,12 +28,12 @@ export class QuestionService {
     modifierQuestion(question: Question): Observable<any> {
         return this.http.put(`${API_ENDPOINT_QUESTION}`, question);
     }
-    
+
     /**
      * delete one question
      */
     supprimerQuestion(id: number): Observable<any> {
-        return this.http.delete(`${API_ENDPOINT_QUESTION}/${id}`,);
+        return this.http.delete(`${API_ENDPOINT_QUESTION}/${id}`, );
     }
 
     /**
@@ -43,9 +43,9 @@ export class QuestionService {
         return this.http.get(`${API_ENDPOINT_QUESTION}/${actif}`);
     }
 
-     /**
-     * get all question by niveau
-     */
+    /**
+    * get all question by niveau
+    */
     getQuestionsByNiveau(): Observable<any> {
         return this.http.get(`${API_ENDPOINT_QUESTION}`);
     }

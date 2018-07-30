@@ -15,17 +15,16 @@ export class InscrireComponent implements OnInit {
 
   idNiveau: number;
   idType: number;
-  langages: string;
+  langages: number[] = [];
   nom: string;
   prenom: string;
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private candidatService: CandidatService,
     private toastr: ToastrService,
-    private utilisateurService: UtilisateurService) { } 
+    private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
     let element = document.getElementById("nav");
@@ -36,7 +35,13 @@ export class InscrireComponent implements OnInit {
 
     this.idNiveau = +this.route.snapshot.paramMap.get('idN');
     this.idType = +this.route.snapshot.paramMap.get('idT');
-    this.langages = this.route.snapshot.paramMap.get('idL');
+    let langagesString = this.route.snapshot.paramMap.get('idL');
+
+    let arrayOfStrings = langagesString.split(",");
+
+    for (let x = 0; x < arrayOfStrings.length; ++x) {
+      this.langages.push(+arrayOfStrings[x]);
+    }
 
     this.utilisateurService.logout();
     this.checkUser();
@@ -60,10 +65,20 @@ export class InscrireComponent implements OnInit {
 
     console.log(candidat);
 
-    this.candidatService.newCandidat(candidat).subscribe(rep => {
-      console.log(rep);
-      this.router.navigateByUrl("/test/" + this.idNiveau + "/" + this.idType + "/" + this.langages + "/" + rep.id);
-      this.toastr.success('Le candidat a été crée', 'Succès');
+    this.candidatService.nombreQuestion(this.idNiveau, this.langages, this.idType).subscribe(rep => {
+      if (rep === true) {
+        this.candidatService.newCandidat(candidat).subscribe(rep => {
+          console.log(rep);
+          this.router.navigateByUrl("/test/" + this.idNiveau + "/" + this.idType + "/" + this.langages + "/" + rep.id);
+          localStorage.setItem('ticks', '0');
+        },
+          (error: any) => {
+            console.log(error);
+            this.toastr.error('Ressource introuvable', 'Erreur');
+          });
+      } else {
+        this.toastr.info('Le nombre de questions est insuffisant', 'Info');
+      }
     },
       (error: any) => {
         console.log(error);
@@ -71,18 +86,39 @@ export class InscrireComponent implements OnInit {
       });
   }
 
-  checkUser(){
+  checkUser() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let element = document.getElementById("deconn");
     let userElement = document.getElementById("user");
 
-    if(currentUser){
-       element.style.display = "initial";
-       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
-    }else{
+    if (currentUser) {
+      element.style.display = "initial";
+      userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+    } else {
       element.style.display = "none";
-       userElement.textContent = "";
+      userElement.textContent = "";
     }
   }
 
+  toCapitalize() {
+    let lEspace = " ";
+    let lTiret = "-";
+
+    if (this.prenom.includes(" ") || this.prenom.includes("-")) {
+
+      if (this.prenom.split(lEspace).length < 2) {
+        var lPrenomWithTiret = this.prenom.split(lTiret);
+        this.prenom = lPrenomWithTiret[0].substring(0, 1).toUpperCase() + lPrenomWithTiret[0].substring(1).toLowerCase() + lTiret + lPrenomWithTiret[1].substring(0, 1).toUpperCase() + lPrenomWithTiret[1].substring(1).toLowerCase();
+      } else {
+        var lPrenomWithEspace = this.prenom.split(lEspace);
+        this.prenom = lPrenomWithEspace[0].substring(0, 1).toUpperCase() + lPrenomWithEspace[0].substring(1).toLowerCase() + lEspace + lPrenomWithEspace[1].substring(0, 1).toUpperCase() + lPrenomWithEspace[1].substring(1).toLowerCase();
+      }
+    } else {
+      this.prenom = this.prenom.substring(0, 1).toUpperCase() + this.prenom.substring(1).toLowerCase();
+    }
+  }
+
+  toUpperCase() {
+    this.nom = this.nom.toUpperCase();
+  }
 }

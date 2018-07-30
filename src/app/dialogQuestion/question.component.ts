@@ -64,9 +64,9 @@ export class DialogQuestionComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.currentUser.utilisateur.role.identite !== "manager"){
+    if (this.currentUser.utilisateur.role.identite !== "manager") {
       this.role = false;
-    }else{
+    } else {
       this.role = true;
     }
 
@@ -91,9 +91,9 @@ export class DialogQuestionComponent implements OnInit {
       this.langageAffiche = true;
       this.libelle = this.data.question.libelle;
       this.code = this.data.question.code;
-      this.typeStatus = ""+this.data.question.typeQuestionDto.id;
+      this.typeStatus = "" + this.data.question.typeQuestionDto.id;
       this.typeQuestionSelected = this.data.question.typeQuestionDto;
-      this.langageStatus = ""+this.data.question.langageDto[0].id;
+      this.langageStatus = "" + this.data.question.langageDto[0].id;
       this.langageSelected = this.data.question.langageDto[0];
 
       let reponses = [];
@@ -187,7 +187,7 @@ export class DialogQuestionComponent implements OnInit {
       } else {
 
         this.buttonAjouter = true;
-        
+
         this.proposition1 = reponses[i].libelle;
         this.reponse1.id = reponses[i].id;
         this.reponse1.libelle = reponses[i].libelle;
@@ -413,4 +413,25 @@ export class DialogQuestionComponent implements OnInit {
     }
   }
 
+  toCapitalize(value: string, field: string) {
+    if (field == "libelle") {
+      this.libelle = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+    }
+
+    if (field == "propo1") {
+      this.proposition1 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+    }
+
+    if (field == "propo2") {
+      this.proposition2 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+    }
+
+    if (field == "propo3") {
+      this.proposition3 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+    }
+
+    if (field == "propo4") {
+      this.proposition4 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+    }
+  }
 }

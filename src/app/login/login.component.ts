@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Connexion } from '../models/connexion';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { Utilisateur } from '../models/utilisateur';
@@ -25,25 +25,25 @@ export class LoginComponent implements OnInit {
     let element = document.getElementById("entete");
     element.style.display = "none";
   }
-  
+
   constructor(private utilisateurService: UtilisateurService, private router: Router) { }
 
-  getConnexion(){
+  getConnexion() {
     this.connexion.login = this.login;
     this.connexion.password = this.password;
 
     this.utilisateurService.postConnexion(this.connexion).subscribe(rep => {
-      if(rep.jeton !== null){
+      if (rep.jeton !== null) {
         this.erreur = false;
         localStorage.setItem('currentUser', JSON.stringify(rep));
         sessionStorage.setItem('currentUser', JSON.stringify(rep));
         this.router.navigateByUrl("/lancerUnTest");
-      }else{
+      } else {
         this.erreur = true;
       }
     },
-    (error: any) => {
-      console.log(error);
-    })
+      (error: any) => {
+        console.log(error);
+      })
   }
 }

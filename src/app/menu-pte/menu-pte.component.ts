@@ -26,7 +26,7 @@ export class MenuPteComponent implements OnInit {
     private langageService: LangageService,
     private typeQuestionService: TypeQuestionService,
     private questionService: QuestionService,
-    private toastr: ToastrService, 
+    private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -50,7 +50,7 @@ export class MenuPteComponent implements OnInit {
 
     this.checkUser();
     this.chargerTableau();
-    
+
     let menuElement = document.getElementById("entete");
     let NavElement = document.getElementById("nav");
     menuElement.style.display = "initial";
@@ -84,7 +84,7 @@ export class MenuPteComponent implements OnInit {
 
   onItemChange(typeQuestion: any) {
     if (typeQuestion.libelle === "Technique") {
-      this.langageAffiche = true; 
+      this.langageAffiche = true;
     } else {
       this.langageSelected = [7];
       this.langageAffiche = false;
@@ -97,11 +97,11 @@ export class MenuPteComponent implements OnInit {
     }
   }
 
-  selectLangage(id: number){
+  selectLangage(id: number) {
     this.langageSelected.push(id);
   }
 
-  chargerTableau(){
+  chargerTableau() {
     this.questionService.getQuestionsByNiveau().subscribe(rep => {
       this.dataSource = new MatTableDataSource(rep);
 
@@ -109,23 +109,23 @@ export class MenuPteComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     },
-    (error: any) => { 
-      console.log(error)
-      this.toastr.error('Ressource introuvable', 'Erreur');
-    });
+      (error: any) => {
+        console.log(error)
+        this.toastr.error('Ressource introuvable', 'Erreur');
+      });
   }
 
-  checkUser(){
+  checkUser() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let element = document.getElementById("deconn");
     let userElement = document.getElementById("user");
 
-    if(currentUser){
-       element.style.display = "initial";
-       userElement.textContent = currentUser.utilisateur.nom+" "+currentUser.utilisateur.prenom;
-    }else{
+    if (currentUser) {
+      element.style.display = "initial";
+      userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+    } else {
       element.style.display = "none";
-       userElement.textContent = "";
+      userElement.textContent = "";
     }
   }
 }

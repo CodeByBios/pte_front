@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HostListener } from "@angular/core";
 import { CandidatService } from '../services/candidat.service'
-import { Candidat } from '../models/candidat';
-import { Question } from '../models/question';
 import { QuestionRepJuste } from '../models/questionRepJuste';
 import { ToastrService } from 'ngx-toastr';
+import { timer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-test',
@@ -14,6 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TestComponent implements OnInit {
 
+  ticks: number;
+  minutesDisplay: any;
+  secondsDisplay: any;
+  sub: Subscription;
   candidatConnected: any;
   note: number = 0;
   idNiveau: number;
@@ -32,6 +35,13 @@ export class TestComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    if (+localStorage.getItem('ticks') === 0 || +localStorage.getItem('ticks') > 0) {
+      this.ticks = +localStorage.getItem('ticks');
+      this.minutesDisplay = this.getMinutes(this.ticks);
+      this.secondsDisplay = this.getSeconds(this.ticks);
+      this.startTimer();
+    }
+
     let element = document.getElementById("nav");
     let element1 = document.getElementById("entete");
 
@@ -50,14 +60,12 @@ export class TestComponent implements OnInit {
     }
 
     this.candidatService.createTest(this.idNiveau, this.langages, this.idType, this.idCandidat).subscribe(rep => {
-
       for (let i = 0; i < rep.length; ++i) {
         rep[i].numero = compteurQuestion + 1;
         compteurQuestion++;
       }
 
       this.questions = rep;
-
       for (let i = 0; i < this.questions.length; ++i) {
         let question = new QuestionRepJuste();
         question.numero = this.questions[i].numero;
@@ -69,25 +77,20 @@ export class TestComponent implements OnInit {
             question.reponses.push(this.questions[i].reponseDto[j]);
           }
         }
-
         this.questionsReponseJuste.push(question);
       }
-
       console.log(this.questionsReponseJuste);
     },
       (error: any) => {
-        this.toastr.info('Le nombre de questions est insuffisant', 'Info');
         console.log(error);
       });
-
-      this.checkUser();
+    this.checkUser();
   }
 
   valider() {
+    this.sub.unsubscribe();
     this.router.navigateByUrl("/testValider");
-
     console.log(this.questionsReponseCandidat);
-
     for (let i = 0; i < this.questionsReponseCandidat.length; ++i) {
       for (let j = 0; j < this.questionsReponseJuste.length; ++j) {
         if (this.questionsReponseCandidat[i].numero === this.questionsReponseJuste[j].numero) {
@@ -99,7 +102,6 @@ export class TestComponent implements OnInit {
     }
 
     this.candidatConnected.note = this.note;
-
     this.candidatService.modifierCandidat(this.candidatConnected).subscribe(rep => { console.log(rep); },
       (error: any) => {
         console.log(error)
@@ -109,9 +111,9 @@ export class TestComponent implements OnInit {
   @HostListener("window:scroll", [])
   onWindowScroll() {
     const number = window.scrollY;
-    if (number > 200) {
+    if (number > 160) {
       this.bulle = true;
-    } else if (this.bulle && number < 200) {
+    } else if (this.bulle && number < 160) {
       this.bulle = false;
     }
   }
@@ -203,5 +205,36 @@ export class TestComponent implements OnInit {
       (error: any) => {
         console.log(error)
       });
+  }
+
+  private startTimer() {
+    let timers = timer(1, 1000);
+    this.sub = timers.subscribe(
+      t => {
+        t = +localStorage.getItem('ticks') + 1;
+
+        localStorage.setItem('ticks', t.toString());
+        this.ticks = +localStorage.getItem('ticks');
+
+        this.minutesDisplay = this.getMinutes(this.ticks);
+        this.secondsDisplay = this.getSeconds(this.ticks);
+
+        if (this.minutesDisplay.toString() === "02" && this.secondsDisplay.toString() === "00") {
+          this.valider();
+        }
+      }
+    );
+  }
+
+  private getSeconds(ticks: number) {
+    return this.pad(ticks % 60);
+  }
+
+  private getMinutes(ticks: number) {
+    return this.pad((Math.floor(ticks / 60)) % 60);
+  }
+
+  private pad(digit: any) {
+    return digit <= 9 ? '0' + digit : digit;
   }
 }

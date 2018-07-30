@@ -5,7 +5,6 @@ import { API_ENDPOINT_UTILISATEUR } from '../../environments/environment';
 import { API_ENDPOINT_CONNEXION } from '../../environments/environment';
 import { Utilisateur } from '../models/utilisateur';
 import { Connexion } from '../models/connexion';
-import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -24,15 +23,15 @@ export class UtilisateurService {
      * @param login
      */
     getUtilisateur(login: string): Observable<any> {
-        return this.http.get(`${API_ENDPOINT_UTILISATEUR}/${login}`, {responseType: 'json'});
+        return this.http.get(`${API_ENDPOINT_UTILISATEUR}/${login}`, { responseType: 'json' });
     }
 
-     /**
-     * get a Utilisateur by login
-     * @param id
-     */
+    /**
+    * get a Utilisateur by login
+    * @param id
+    */
     getUtilisateurById(id: number): Observable<any> {
-        return this.http.get(`${API_ENDPOINT_UTILISATEUR}/user/${id}`, {responseType: 'json'});
+        return this.http.get(`${API_ENDPOINT_UTILISATEUR}/user/${id}`, { responseType: 'json' });
     }
 
     /**

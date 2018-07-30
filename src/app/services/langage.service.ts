@@ -6,18 +6,18 @@ import { API_ENDPOINT_LANGAGE } from '../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class LangageService { 
+export class LangageService {
 
     /**
      * constructor
      * @param  {HttpClient} privatehttp Local HttpClient reference
      */
     constructor(private http: HttpClient) { }
-    
+
     /**
      * get all langages
      */
     getLangages(): Observable<any> {
-        return this.http.get(`${API_ENDPOINT_LANGAGE}`, {responseType: 'json'});
+        return this.http.get(`${API_ENDPOINT_LANGAGE}`, { responseType: 'json' });
     }
 }

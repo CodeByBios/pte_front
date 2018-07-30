@@ -2,7 +2,7 @@
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
   </mat-form-field>
-  
+
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -18,7 +18,7 @@
 
       <ng-container matColumnDef="responsables de test">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> RESPONSABLES DE TEST </th>
-        <td mat-cell *matCellDef="let row"> {{row.utilisateurDto.nom}}&nbsp;&nbsp;{{row.utilisateurDto.prenom}}  </td>
+        <td mat-cell *matCellDef="let row"> {{row.utilisateurDto.nom}}&nbsp;&nbsp;{{row.utilisateurDto.prenom}} </td>
       </ng-container>
 
       <ng-container matColumnDef="dates">
@@ -34,10 +34,10 @@
       <ng-container class="action" matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
         <td mat-cell *matCellDef="let row">
-            <div class="buttons">
-                <div class="button" (click)="visualiser(row)">Visualiser</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="button" *ngIf="role" (click)="supprimer(row)">Supprimer</div>
-            </div>
+          <div class="buttons">
+            <div class="button" (click)="visualiser(row)">Visualiser</div>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="button" *ngIf="role" (click)="supprimer(row)">Supprimer</div>
+          </div>
         </td>
       </ng-container>
 

@@ -2,7 +2,8 @@
   <h2 mat-dialog-title></h2>
   <mat-dialog-content>
     <mat-form-field>
-      <textarea style="text-transform: capitalize;" [disabled]="desactiverQuestion" matInput [(ngModel)]="libelle" placeholder="Libelle" required></textarea>
+      <textarea (keyup)="toCapitalize(libelle, 'libelle')" [disabled]="desactiverQuestion" matInput [(ngModel)]="libelle" placeholder="Libelle"
+        required></textarea>
     </mat-form-field>
 
     <mat-form-field>
@@ -10,7 +11,8 @@
     </mat-form-field>
 
     <div *ngIf="affiche">
-      <mat-checkbox color="primary" [checked]="niveau.isCheck" [disabled]="desactiverQuestion" (click)="selectedNiveau(niveau)" *ngFor="let niveau of niveauxHtml">{{niveau.libelle}}</mat-checkbox>
+      <mat-checkbox color="primary" [checked]="niveau.isCheck" [disabled]="desactiverQuestion" (click)="selectedNiveau(niveau)"
+        *ngFor="let niveau of niveauxHtml">{{niveau.libelle}}</mat-checkbox>
     </div>
     <br>
 
@@ -35,20 +37,23 @@
     </mat-radio-group>
 
     <mat-form-field>
-      <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition1" placeholder="Proposition 1" required>
+      <input matInput (keyup)="toCapitalize(proposition1, 'propo1')" [disabled]="desactiverQuestion" [(ngModel)]="proposition1"
+        placeholder="Proposition 1" required>
     </mat-form-field>
     <mat-checkbox color="primary" [checked]="pro1Check" [disabled]="desactiverQuestion" (click)="repJuste1()">Bonne proposition ?</mat-checkbox>
     <br>
 
     <mat-form-field>
-      <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition2" placeholder="Proposition 2" required>
+      <input matInput (keyup)="toCapitalize(proposition2, 'propo2')" [disabled]="desactiverQuestion" [(ngModel)]="proposition2"
+        placeholder="Proposition 2" required>
     </mat-form-field>
     <mat-checkbox color="primary" [checked]="pro2Check" [disabled]="desactiverQuestion" (click)="repJuste2()">Bonne proposition ?</mat-checkbox>
     <br>
 
     <div *ngIf="propo3">
       <mat-form-field>
-        <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition3" placeholder="Proposition 3">
+        <input matInput (keyup)="toCapitalize(proposition3, 'propo3')" [disabled]="desactiverQuestion" [(ngModel)]="proposition3"
+          placeholder="Proposition 3">
       </mat-form-field>
       <mat-checkbox color="primary" [checked]="pro3Check" [disabled]="desactiverQuestion" (click)="repJuste3()">Bonne proposition ?</mat-checkbox>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
@@ -58,7 +63,8 @@
 
     <div *ngIf="propo4">
       <mat-form-field>
-        <input matInput style="text-transform: capitalize;" [disabled]="desactiverQuestion" [(ngModel)]="proposition4" placeholder="Proposition 4">
+        <input matInput (keyup)="toCapitalize(proposition4, 'propo4')" [disabled]="desactiverQuestion" [(ngModel)]="proposition4"
+          placeholder="Proposition 4">
       </mat-form-field>
       <mat-checkbox color="primary" [checked]="pro4Check" [disabled]="desactiverQuestion" (click)="repJuste4()">Bonne proposition ?</mat-checkbox>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
