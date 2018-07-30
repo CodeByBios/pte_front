@@ -30,7 +30,9 @@ export class ResultatComponent implements OnInit {
 
   ngOnInit() {
     let element = document.getElementById("entete");
+    let element2 = document.getElementById("recherche");
     element.style.display = "initial";
+    element2.focus();
 
     this.checkUser()
     this.chargerTableau();

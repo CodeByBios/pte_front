@@ -34,6 +34,8 @@ export class VisualiserComponent implements OnInit {
   ngOnInit() {
     let element = document.getElementById("entete");
     element.style.display = "initial";
+    let element2 = document.getElementById("recherche");
+    element2.focus();
 
     this.checkUser();
     this.chargerTableau(false);
