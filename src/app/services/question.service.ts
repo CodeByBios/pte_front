@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT_QUESTION } from '../../environments/environment';
+import { API_ENDPOINT_QUESTION_REPONDU } from '../../environments/environment';
 import { Question } from '../models/question'
+import { QuestionRepondu } from '../models/questionRep'
 
 @Injectable({
     providedIn: 'root'
@@ -48,5 +50,20 @@ export class QuestionService {
     */
     getQuestionsByNiveau(): Observable<any> {
         return this.http.get(`${API_ENDPOINT_QUESTION}`);
+    }
+
+    /**
+     * get all questions repondu for one candidat
+     */
+    getQuestionsReponduByCandidat(idCandidat: number): Observable<any> {
+        return this.http.get(`${API_ENDPOINT_QUESTION_REPONDU}/${idCandidat}`);
+    }
+
+
+     /**
+     * post one question repondu for one candidat
+     */
+    postQuestionRepondu(question: QuestionRepondu): Observable<any> {
+        return this.http.post(`${API_ENDPOINT_QUESTION_REPONDU}`, question);
     }
 }

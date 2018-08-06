@@ -14,3 +14,4 @@ export const API_ENDPOINT_LANGAGE = 'http://localhost:8080/pte/v1/langages';
 export const API_ENDPOINT_QUESTION = 'http://localhost:8080/pte/v1/questions';
 export const API_ENDPOINT_CANDIDAT = 'http://localhost:8080/pte/v1/candidats';
 export const API_ENDPOINT_TEST = 'http://localhost:8080/pte/v1/test/creer';
+export const API_ENDPOINT_QUESTION_REPONDU = 'http://localhost:8080/pte/v1/questionrepondu';

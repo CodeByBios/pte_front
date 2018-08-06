@@ -10,16 +10,17 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
-import { MenuPteComponent } from './menu-pte/menu-pte.component'
-import { LoginComponent } from './login/login.component'
-import { TestComponent } from './test/test.component'
-import { InscrireComponent } from './inscrire/inscrire.component'
-import { ValiderComponent } from './valider/valider.component'
-import { VisualiserComponent } from './visualiser/visualiser.component'
-import { ResultatComponent } from './resultat/resultat.component'
-import { DialogQuestionComponent } from './dialogQuestion/question.component'
-import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.component'
-
+import { MenuPteComponent } from './menu-pte/menu-pte.component';
+import { LoginComponent } from './login/login.component';
+import { TestComponent } from './test/test.component';
+import { InscrireComponent } from './inscrire/inscrire.component';
+import { ValiderComponent } from './valider/valider.component';
+import { VisualiserComponent } from './visualiser/visualiser.component';
+import { ResultatComponent } from './resultat/resultat.component';
+import { DialogQuestionComponent } from './dialogQuestion/question.component';
+import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.component';
+import { CodeBlockComponent } from './code-block/code-block.component';
+import { DialogVisualiserComponent } from './dialog-visualiser/dialog-visualiser.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.com
     VisualiserComponent,
     ResultatComponent,
     DialogQuestionComponent,
-    DialogSupprimerComponent
+    DialogSupprimerComponent,
+    CodeBlockComponent,
+    DialogVisualiserComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { DialogSupprimerComponent } from './dialogSupprimer/dialog-supprimer.com
   ],
   entryComponents: [
     DialogQuestionComponent,
-    DialogSupprimerComponent
+    DialogSupprimerComponent,
+    DialogVisualiserComponent
   ],
   bootstrap: [AppComponent]
 })

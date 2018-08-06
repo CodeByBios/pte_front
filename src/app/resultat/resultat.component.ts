@@ -5,6 +5,7 @@ import { CandidatService } from '../services/candidat.service';
 import { MatDialog } from '@angular/material';
 import { DialogSupprimerComponent } from '../dialogSupprimer/dialog-supprimer.component';
 import { ToastrService } from 'ngx-toastr';
+import { DialogVisualiserComponent } from '../dialog-visualiser/dialog-visualiser.component'
 
 
 @Component({
@@ -53,7 +54,13 @@ export class ResultatComponent implements OnInit {
   }
 
   visualiser(row: any) {
-    console.log("visualiser");
+    const dialogRef = this.dialog.open(DialogVisualiserComponent, {
+      data: { resultat: row }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
 
   supprimer(row: any) {
@@ -88,7 +95,7 @@ export class ResultatComponent implements OnInit {
 
     if (currentUser) {
       element.style.display = "initial";
-      userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+      userElement.textContent = currentUser.utilisateur.prenom + " " + currentUser.utilisateur.nom;
     } else {
       element.style.display = "none";
       userElement.textContent = "";

@@ -19,6 +19,7 @@ export class InscrireComponent implements OnInit {
   nom: string;
   prenom: string;
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  buttonDemarrer: boolean;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -59,23 +60,25 @@ export class InscrireComponent implements OnInit {
     currentUser.roleDto = this.currentUser.utilisateur.role;
 
     candidat.utilisateurDto = currentUser;
-    candidat.nom = this.nom;
-    candidat.prenom = this.prenom;
+    candidat.nom = this.validerField(this.nom);
+    candidat.prenom = this.validerField(this.prenom);
     candidat.temps = 20;
 
     console.log(candidat);
 
     this.candidatService.nombreQuestion(this.idNiveau, this.langages, this.idType).subscribe(rep => {
       if (rep === true) {
-        this.candidatService.newCandidat(candidat).subscribe(rep => {
-          console.log(rep);
-          this.router.navigateByUrl("/test/" + this.idNiveau + "/" + this.idType + "/" + this.langages + "/" + rep.id);
-          localStorage.setItem('ticks', '0');
-        },
-          (error: any) => {
-            console.log(error);
-            this.toastr.error('Ressource introuvable', 'Erreur');
-          });
+        if (candidat.nom && candidat.prenom) {
+          this.candidatService.newCandidat(candidat).subscribe(rep => {
+            console.log(rep);
+            this.router.navigateByUrl("/test/" + this.idNiveau + "/" + this.idType + "/" + this.langages + "/" + rep.id);
+            localStorage.setItem('ticks', '0');
+          },
+            (error: any) => {
+              console.log(error);
+              this.toastr.error('Ressource introuvable', 'Erreur');
+            });
+        }
       } else {
         this.toastr.info('Le nombre de questions est insuffisant', 'Info');
       }
@@ -93,7 +96,7 @@ export class InscrireComponent implements OnInit {
 
     if (currentUser) {
       element.style.display = "initial";
-      userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+      userElement.textContent = currentUser.utilisateur.prenom + " " + currentUser.utilisateur.nom;
     } else {
       element.style.display = "none";
       userElement.textContent = "";
@@ -105,7 +108,6 @@ export class InscrireComponent implements OnInit {
     let lTiret = "-";
 
     if (this.prenom.includes(" ") || this.prenom.includes("-")) {
-
       if (this.prenom.split(lEspace).length < 2) {
         var lPrenomWithTiret = this.prenom.split(lTiret);
         this.prenom = lPrenomWithTiret[0].substring(0, 1).toUpperCase() + lPrenomWithTiret[0].substring(1).toLowerCase() + lTiret + lPrenomWithTiret[1].substring(0, 1).toUpperCase() + lPrenomWithTiret[1].substring(1).toLowerCase();
@@ -116,9 +118,36 @@ export class InscrireComponent implements OnInit {
     } else {
       this.prenom = this.prenom.substring(0, 1).toUpperCase() + this.prenom.substring(1).toLowerCase();
     }
+    this.checkField()
   }
 
   toUpperCase() {
     this.nom = this.nom.toUpperCase();
+    this.checkField()
+  }
+
+  checkField() {
+    if (this.nom && this.prenom) {
+      this.buttonDemarrer = true;
+    } else {
+      this.buttonDemarrer = false;
+    }
+  }
+
+  validerField(field: string): string {
+    let rep = null;
+    field = field.trim();
+    if (field.includes("'") ||
+      field.includes("select") ||
+      field.includes(";") ||
+      field.includes("update") ||
+      field.includes("delete") ||
+      field.includes("insert")) {
+      this.toastr.info('Presence de caractère ou de mot indésirable', 'Info');
+    }
+    else {
+      rep = field;
+    }
+    return rep;
   }
 }

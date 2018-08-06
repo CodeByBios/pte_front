@@ -6,16 +6,16 @@
   <br>
 
   <mat-form-field>
-    <input (keyup)="toUpperCase()" matInput placeholder="Nom" [(ngModel)]="nom">
+    <input (keyup)="toUpperCase()" matInput placeholder="Nom" [(ngModel)]="nom" required>
   </mat-form-field>
 
   <mat-form-field>
-    <input (keyup)="toCapitalize()" matInput placeholder="Prénom" [(ngModel)]="prenom"> 
+    <input (keyup)="toCapitalize()" matInput placeholder="Prénom" [(ngModel)]="prenom" required> 
   </mat-form-field>
   <br>
   <br>
 
   <div>
-    <button mat-raised-button color="primary" (click)="demarrer()">Demarrer le test</button>
+    <button mat-raised-button color="primary" [disabled]="!buttonDemarrer" (click)="demarrer()">Demarrer le test</button>
   </div>
 </div>

@@ -3,13 +3,13 @@
   <br>
 
   <mat-form-field>
-    <mat-select placeholder="Niveau d'études" [(ngModel)]="niveauSelected">
-      <mat-option value="{{niveau.id}}" *ngFor="let niveau of niveaux">{{niveau.libelle}}</mat-option>
+    <mat-select placeholder="Niveau d'études" [(ngModel)]="niveauSelected" required>
+      <mat-option (click)="checkField()" value="{{niveau.id}}" *ngFor="let niveau of niveaux">{{niveau.libelle}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Type de test" [(ngModel)]="typeQuestionSelected">
+    <mat-select placeholder="Type de test" [(ngModel)]="typeQuestionSelected" required>
       <mat-option (click)="onItemChange(typeQuestion)" value="{{typeQuestion.id}}" *ngFor="let typeQuestion of typeQuestions">{{typeQuestion.libelle}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -21,8 +21,8 @@
   </div>
   <br>
 
-  <div>
-    <button mat-raised-button color="primary" (click)="suivant()">Suivant</button>
+  <div class="buttons">
+    <button mat-raised-button color="primary" [disabled]="!buttonSuivant" (click)="suivant()">Suivant</button>
   </div>
   <br>
 
@@ -74,7 +74,3 @@
   </div>
 
 </div>
-
-<footer>
-  @sodifrance 2018
-</footer>

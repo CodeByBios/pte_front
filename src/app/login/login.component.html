@@ -7,18 +7,18 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Login</mat-label>
-        <input matInput autofocus placeholder="" [(ngModel)]="login">
+        <input matInput autofocus placeholder="" (keyup)="checkField()" [(ngModel)]="login">
       </mat-form-field>
     </p>
     
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input type="password" matInput placeholder="" [(ngModel)]="password">
+        <input type="password" matInput placeholder="" (keyup)="checkField()" (keyup.enter)="getConnexion()" [(ngModel)]="password">
       </mat-form-field>
     </p>
   
     <span *ngIf="erreur">Login ou mot de passe incorret !</span>
-    <button id="button" mat-raised-button color="primary" (click)="getConnexion()">Connexion</button>
+    <button id="button" mat-raised-button color="primary" [disabled]="!buttonConnexion" (click)="getConnexion()">Connexion</button>
   </div>
 </div>

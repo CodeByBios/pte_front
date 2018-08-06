@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { QuestionService } from '../services/question.service'
 import { Question } from '../models/question';
@@ -33,7 +33,12 @@ export class DialogQuestionComponent implements OnInit {
   pro2Check: boolean;
   pro3Check: boolean;
   pro4Check: boolean;
+  pro1: boolean;
+  pro2: boolean;
+  pro3: boolean;
+  pro4: boolean;
   role: boolean;
+  buttonValider: boolean;
   typeStatus: string;
   langageStatus: string;
 
@@ -107,9 +112,11 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse1.libelle = reponses[i].libelle;
         if (reponses[i].reponseJuste === true) {
           this.pro1Check = true;
+          this.pro1 = true;
           this.reponse1.reponseJuste = true;
         } else {
           this.pro1Check = false;
+          this.pro1 = false;
           this.reponse1.reponseJuste = false;
         }
 
@@ -118,9 +125,11 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse2.libelle = reponses[i + 1].libelle;
         if (reponses[i + 1].reponseJuste === true) {
           this.pro2Check = true;
+          this.pro2 = true;
           this.reponse2.reponseJuste = true;
         } else {
           this.pro2Check = false;
+          this.pro2 = false;
           this.reponse2.reponseJuste = false;
         }
 
@@ -130,9 +139,11 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse3.libelle = reponses[i + 2].libelle;
         if (reponses[i + 2].reponseJuste === true) {
           this.pro3Check = true;
+          this.pro3 = true;
           this.reponse3.reponseJuste = true;
         } else {
           this.pro3Check = false;
+          this.pro3 = false;
           this.reponse3.reponseJuste = false;
         }
 
@@ -142,23 +153,26 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse4.libelle = reponses[i + 3].libelle;
         if (reponses[i + 3].reponseJuste === true) {
           this.pro4Check = true;
+          this.pro4 = true;
           this.reponse4.reponseJuste = true;
         } else {
           this.pro4Check = false;
+          this.pro4 = false;
           this.reponse4.reponseJuste = false;
         }
       } else if (reponses.length === 3) {
 
         this.buttonAjouter = true;
-
         this.proposition1 = reponses[i].libelle;
         this.reponse1.id = reponses[i].id;
         this.reponse1.libelle = reponses[i].libelle;
         if (reponses[i].reponseJuste === true) {
           this.pro1Check = true;
+          this.pro1 = true;
           this.reponse1.reponseJuste = true;
         } else {
           this.pro1Check = false;
+          this.pro1 = false;
           this.reponse1.reponseJuste = false;
         }
 
@@ -167,9 +181,11 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse2.libelle = reponses[i + 1].libelle;
         if (reponses[i + 1].reponseJuste === true) {
           this.pro2Check = true;
+          this.pro2 = true;
           this.reponse2.reponseJuste = true;
         } else {
           this.pro2Check = false;
+          this.pro2 = false;
           this.reponse2.reponseJuste = false;
         }
 
@@ -179,23 +195,26 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse3.libelle = reponses[i + 2].libelle;
         if (reponses[i + 2].reponseJuste === true) {
           this.pro3Check = true;
+          this.pro3 = true;
           this.reponse3.reponseJuste = true;
         } else {
           this.pro3Check = false;
+          this.pro3 = false;
           this.reponse3.reponseJuste = false;
         }
       } else {
 
         this.buttonAjouter = true;
-
         this.proposition1 = reponses[i].libelle;
         this.reponse1.id = reponses[i].id;
         this.reponse1.libelle = reponses[i].libelle;
         if (reponses[i].reponseJuste === true) {
           this.pro1Check = true;
+          this.pro1 = true;
           this.reponse1.reponseJuste = true;
         } else {
           this.pro1Check = false;
+          this.pro1 = false;
           this.reponse1.reponseJuste = false;
         }
 
@@ -204,9 +223,11 @@ export class DialogQuestionComponent implements OnInit {
         this.reponse2.libelle = reponses[i + 1].libelle;
         if (reponses[i + 1].reponseJuste === true) {
           this.pro2Check = true;
+          this.pro2 = true;
           this.reponse2.reponseJuste = true;
         } else {
           this.pro2Check = false;
+          this.pro2 = false;
           this.reponse2.reponseJuste = false;
         }
       }
@@ -219,6 +240,7 @@ export class DialogQuestionComponent implements OnInit {
         this.etat = "nonValider";
         this.desactiverQuestion = false;
       }
+      this.checkField();
     }
 
     this.niveauService.getNiveau().subscribe(rep => {
@@ -268,15 +290,18 @@ export class DialogQuestionComponent implements OnInit {
       this.propo4 = true;
       this.buttonAjouter = false;
     }
+    this.checkField();
   }
 
   supprimerProposition() {
-    if (this.propo4 !== false) {
+    if (this.propo4 === true) {
       this.propo4 = false;
+      this.buttonAjouter = true;
     } else {
       this.propo3 = false;
       this.buttonAjouter = true;
     }
+    this.checkField();
   }
 
   valider() {
@@ -297,6 +322,7 @@ export class DialogQuestionComponent implements OnInit {
     }
 
     question.libelle = this.libelle;
+    question.code = this.code;
     question.niveauDto = this.niveauSelected;
     question.reponseDto = this.reponses;
     question.typeQuestionDto = this.typeQuestionSelected;
@@ -353,10 +379,12 @@ export class DialogQuestionComponent implements OnInit {
       this.langageAffiche = false;
     }
     this.typeQuestionSelected = typeQuestion;
+    this.checkField();
   }
 
   selectedLangage(langage: Langage) {
     this.langageSelected = langage;
+    this.checkField();
   }
 
   selectedNiveau(pniveau: Niveau) {
@@ -379,59 +407,155 @@ export class DialogQuestionComponent implements OnInit {
         this.niveauSelected.push(niveau);
       }
     }
+    this.checkField();
   }
 
   repJuste1() {
     if (this.reponse1.reponseJuste === true) {
       this.reponse1.reponseJuste = false;
+      this.pro1 = false;
     } else {
       this.reponse1.reponseJuste = true;
+      this.pro1 = true;
     }
+    this.checkField();
   }
 
   repJuste2() {
     if (this.reponse2.reponseJuste === true) {
       this.reponse2.reponseJuste = false;
+      this.pro2 = false;
     } else {
       this.reponse2.reponseJuste = true;
+      this.pro2 = true;
     }
+    this.checkField();
   }
 
   repJuste3() {
     if (this.reponse3.reponseJuste === true) {
       this.reponse3.reponseJuste = false;
+      this.pro3 = false;
     } else {
       this.reponse3.reponseJuste = true;
+      this.pro3 = true;
     }
+    this.checkField();
   }
 
   repJuste4() {
     if (this.reponse4.reponseJuste === true) {
       this.reponse4.reponseJuste = false;
+      this.pro4 = false;
     } else {
       this.reponse4.reponseJuste = true;
+      this.pro4 = true;
     }
+    this.checkField();
   }
 
   toCapitalize(value: string, field: string) {
     if (field == "libelle") {
       this.libelle = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
     }
-
     if (field == "propo1") {
       this.proposition1 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
     }
-
     if (field == "propo2") {
       this.proposition2 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
     }
-
     if (field == "propo3") {
       this.proposition3 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
     }
-
     if (field == "propo4") {
       this.proposition4 = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+    }
+
+    this.checkField();
+  }
+
+  checkField() {
+    if (this.libelle) {
+      if ("" + this.niveauSelected.length !== "0" && this.typeQuestionSelected) {
+        if (this.typeQuestionSelected.id !== 1) {
+          if (this.propo4) {
+            if (this.proposition4 && this.propo3 && this.proposition3 && this.proposition1 && this.proposition2) {
+              if (this.pro1 || this.pro2 || this.pro3 || this.pro4) {
+                this.buttonValider = true;
+              } else {
+                this.buttonValider = false;
+              }
+            } else {
+              this.buttonValider = false;
+            }
+          } else {
+            if (this.propo3) {
+              if (this.proposition3 && this.proposition1 && this.proposition2) {
+                if (this.pro1 || this.pro2 || this.pro3) {
+                  this.buttonValider = true;
+                } else {
+                  this.buttonValider = false;
+                }
+              } else {
+                this.buttonValider = false;
+              }
+            } else {
+              if (this.proposition1 && this.proposition2) {
+                if (this.pro1 || this.pro2) {
+                  this.buttonValider = true;
+                } else {
+                  this.buttonValider = false;
+                }
+              } else {
+                this.buttonValider = false;
+              }
+            }
+          }
+
+        } else {
+          if (this.langageSelected) {
+            if (this.propo4) {
+              if (this.proposition4 && this.propo3 && this.proposition3 && this.proposition1 && this.proposition2) {
+                if (this.pro1 || this.pro2 || this.pro3 || this.pro4) {
+                  this.buttonValider = true;
+                } else {
+                  this.buttonValider = false;
+                }
+              } else {
+                this.buttonValider = false;
+              }
+            } else {
+              if (this.propo3) {
+                if (this.proposition3 && this.proposition1 && this.proposition2) {
+                  if (this.pro1 || this.pro2 || this.pro3) {
+                    this.buttonValider = true;
+                  } else {
+                    this.buttonValider = false;
+                  }
+                } else {
+                  this.buttonValider = false;
+                }
+              } else {
+                if (this.proposition1 && this.proposition2) {
+                  if (this.pro1 || this.pro2) {
+                    this.buttonValider = true;
+                  } else {
+                    this.buttonValider = false;
+                  }
+                } else {
+                  this.buttonValider = false;
+                }
+              }
+            }
+          } else {
+            this.buttonValider = false;
+          }
+        }
+      } else {
+        this.buttonValider = false;
+      }
+    } else {
+      this.buttonValider = false;
     }
   }
 }

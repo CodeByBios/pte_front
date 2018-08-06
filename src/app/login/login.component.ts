@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Connexion } from '../models/connexion';
 import { UtilisateurService } from '../services/utilisateur.service';
-import { Utilisateur } from '../models/utilisateur';
 import { Router } from '@angular/router';
-import { TEXTE_ENTETE } from '../fr-FR'
-import { Button } from 'protractor';
-
+import { TEXTE_ENTETE } from '../fr-FR';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +16,7 @@ export class LoginComponent implements OnInit {
   password: string;
   connexion = new Connexion();
   texteEntete = TEXTE_ENTETE;
+  buttonConnexion: boolean;
 
   ngOnInit() {
     this.erreur = false;
@@ -29,8 +27,8 @@ export class LoginComponent implements OnInit {
   constructor(private utilisateurService: UtilisateurService, private router: Router) { }
 
   getConnexion() {
-    this.connexion.login = this.login;
-    this.connexion.password = this.password;
+    this.connexion.login = this.validerField(this.login);
+    this.connexion.password = this.validerField(this.password);
 
     this.utilisateurService.postConnexion(this.connexion).subscribe(rep => {
       if (rep.jeton !== null) {
@@ -45,5 +43,28 @@ export class LoginComponent implements OnInit {
       (error: any) => {
         console.log(error);
       })
+  }
+
+  checkField() {
+    if (this.login && this.password) {
+      this.buttonConnexion = true;
+    } else {
+      this.buttonConnexion = false;
+    }
+  }
+
+  validerField(field: string):string{
+    let rep = "abc";
+    field = field.trim();
+    if (field.includes("'") ||
+      field.includes("select") || 
+      field.includes(";") || 
+      field.includes("update") ||
+      field.includes("delete") ||
+      field.includes("insert")){}
+    else{
+      rep = field;
+    }
+    return rep;
   }
 }

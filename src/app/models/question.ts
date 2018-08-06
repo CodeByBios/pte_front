@@ -8,6 +8,7 @@ export class Question {
     id: number;
     langageDto: Langage[];
     libelle: string;
+    code: string;
     niveauDto: Niveau[];
     reponseDto: Reponse[];
     typeQuestionDto: TypeQuestion;

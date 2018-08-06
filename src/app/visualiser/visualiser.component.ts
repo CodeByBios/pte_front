@@ -120,7 +120,7 @@ export class VisualiserComponent implements OnInit {
 
     if (currentUser) {
       element.style.display = "initial";
-      userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+      userElement.textContent = currentUser.utilisateur.prenom + " " + currentUser.utilisateur.nom;
     } else {
       element.style.display = "none";
       userElement.textContent = "";

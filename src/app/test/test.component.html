@@ -10,11 +10,11 @@
     <article>
       <div class="questions" *ngFor="let question of questions">
         <div class="intitule">
-          <span>Question {{question.numero}}:</span> {{question.libelle}}
+          <span>Question {{question.numero}} :</span> {{question.libelle}}
         </div>
         <br>
 
-        <div class="code"></div>
+        <div class="code" *ngIf="question.code">{{question.code}}</div>
         <br>
 
         <div class="checkboxes">

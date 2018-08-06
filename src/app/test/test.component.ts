@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HostListener } from "@angular/core";
-import { CandidatService } from '../services/candidat.service'
+import { CandidatService } from '../services/candidat.service';
+import { QuestionService } from '../services/question.service'
 import { QuestionRepJuste } from '../models/questionRepJuste';
 import { ToastrService } from 'ngx-toastr';
 import { timer, Subscription } from 'rxjs';
+import { QuestionRepondu } from '../models/questionRep'
 
 @Component({
   selector: 'app-test',
@@ -32,7 +34,9 @@ export class TestComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private candidatService: CandidatService,
+    private questionService: QuestionService,
     private toastr: ToastrService) { }
+
 
   ngOnInit() {
     if (+localStorage.getItem('ticks') === 0 || +localStorage.getItem('ticks') > 0) {
@@ -66,6 +70,7 @@ export class TestComponent implements OnInit {
       }
 
       this.questions = rep;
+      console.log(this.questions);
       for (let i = 0; i < this.questions.length; ++i) {
         let question = new QuestionRepJuste();
         question.numero = this.questions[i].numero;
@@ -102,9 +107,24 @@ export class TestComponent implements OnInit {
     }
 
     this.candidatConnected.note = this.note;
-    this.candidatService.modifierCandidat(this.candidatConnected).subscribe(rep => { console.log(rep); },
+    this.candidatService.modifierCandidat(this.candidatConnected).subscribe(rep => {
+     
+      for (let i = 0; i < this.questionsReponseCandidat.length; ++i) {
+        let questionRepondu = new QuestionRepondu();
+        questionRepondu.idCandidat = this.idCandidat;
+        questionRepondu.idQuestion = this.questionsReponseCandidat[i].idQuestion;
+        questionRepondu.reponseCandidatDto = this.questionsReponseCandidat[i].reponses;
+
+        this.questionService.postQuestionRepondu(questionRepondu).subscribe(rep => {
+          console.log(rep);
+        },
+          (error: any) => {
+            console.log(error);
+          });
+      }
+    },
       (error: any) => {
-        console.log(error)
+        console.log(error);
       });
   }
 
@@ -132,6 +152,8 @@ export class TestComponent implements OnInit {
 
     if (this.questionsReponseCandidat.length === 0) {
       let question = new QuestionRepJuste();
+
+      question.idQuestion = pQuestion.id;
       question.numero = pQuestion.numero;
       question.libelle = pQuestion.libelle;
       question.reponses = [];
@@ -158,6 +180,7 @@ export class TestComponent implements OnInit {
 
       if (cpt === 0) {
         let question = new QuestionRepJuste();
+        question.idQuestion = pQuestion.id;
         question.numero = pQuestion.numero;
         question.libelle = pQuestion.libelle;
         question.reponses = [];
@@ -196,10 +219,10 @@ export class TestComponent implements OnInit {
 
       if (currentUser) {
         element.style.display = "initial";
-        userElement.textContent = currentUser.utilisateur.nom + " " + currentUser.utilisateur.prenom;
+        userElement.textContent = currentUser.utilisateur.prenom + " " + currentUser.utilisateur.nom;
       } else {
         element.style.display = "none";
-        userElement.textContent = this.candidatConnected.nom + " " + this.candidatConnected.prenom;
+        userElement.textContent = this.candidatConnected.prenom + " " + this.candidatConnected.nom;
       }
     },
       (error: any) => {
@@ -219,7 +242,7 @@ export class TestComponent implements OnInit {
         this.minutesDisplay = this.getMinutes(this.ticks);
         this.secondsDisplay = this.getSeconds(this.ticks);
 
-        if (this.minutesDisplay.toString() === "02" && this.secondsDisplay.toString() === "00") {
+        if (this.minutesDisplay.toString() === "05" && this.secondsDisplay.toString() === "00") {
           this.valider();
         }
       }

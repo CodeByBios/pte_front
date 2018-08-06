@@ -17,7 +17,7 @@
     <br>
 
     <mat-form-field *ngIf="affiche">
-      <mat-select placeholder="Type de question" [(ngModel)]="typeStatus" [disabled]="desactiverQuestion">
+      <mat-select placeholder="Type de question" [(ngModel)]="typeStatus" [disabled]="desactiverQuestion" required>
         <mat-option (click)="selectedTypeQuestion(typeQuestion)" value="{{typeQuestion.id}}" *ngFor="let typeQuestion of typeQuestions">{{typeQuestion.libelle}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -53,7 +53,7 @@
     <div *ngIf="propo3">
       <mat-form-field>
         <input matInput (keyup)="toCapitalize(proposition3, 'propo3')" [disabled]="desactiverQuestion" [(ngModel)]="proposition3"
-          placeholder="Proposition 3">
+          placeholder="Proposition 3" required>
       </mat-form-field>
       <mat-checkbox color="primary" [checked]="pro3Check" [disabled]="desactiverQuestion" (click)="repJuste3()">Bonne proposition ?</mat-checkbox>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
@@ -64,7 +64,7 @@
     <div *ngIf="propo4">
       <mat-form-field>
         <input matInput (keyup)="toCapitalize(proposition4, 'propo4')" [disabled]="desactiverQuestion" [(ngModel)]="proposition4"
-          placeholder="Proposition 4">
+          placeholder="Proposition 4" required>
       </mat-form-field>
       <mat-checkbox color="primary" [checked]="pro4Check" [disabled]="desactiverQuestion" (click)="repJuste4()">Bonne proposition ?</mat-checkbox>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
@@ -80,6 +80,6 @@
   <br>
   <mat-dialog-actions>
     <button mat-raised-button color="primary" [mat-dialog-close]="true">Annuler</button>
-    <button mat-raised-button color="primary" (click)="valider()">Valider</button>
+    <button mat-raised-button color="primary" [disabled]="!buttonValider" (click)="valider()">Valider</button>
   </mat-dialog-actions>
 </div>

@@ -1,0 +1,26 @@
+<div class="all">  
+  <h2 mat-dialog-title>Visualisation d'un resultat</h2>
+  <mat-dialog-content>
+      <article>
+          <div class="questions" *ngFor="let question of questions">
+            <div class="intitule">
+              <span>Question {{question.numero}} :</span> {{question.libelle}}
+            </div> 
+            <br>
+    
+            <div class="code" *ngIf="question.code">{{question.code}}</div>
+            <br>
+    
+            <div class="checkboxes">
+              <div class="checkbox" *ngFor="let reponse of question.reponseDto">
+                <mat-checkbox color="primary" [checked]="reponse.reponseJuste" [style.color]="reponse.couleur" id="check">{{reponse.libelle}}</mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </article>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <br>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Fermer</button>
+  </mat-dialog-actions>
+</div>

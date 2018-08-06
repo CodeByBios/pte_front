@@ -20,17 +20,13 @@
             float: right;
             background-color : rgb(58, 58, 221);
         }
+        button[disabled]{
+            background-color: rgba(0,0,0,.12);
+        }
         h2{
             font-weight: normal;
         }
         table{
             text-align: center;
         }
-}
-
-footer{
-    height: 30px,;
-    line-height: 30px;
-    text-align: center;
-    background-color:  rgb(128, 123, 123);
 }
